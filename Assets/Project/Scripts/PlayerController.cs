@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
         // clamp the vertical rotation
         rotX = Mathf.Clamp(rotX, minTurnAngle, maxTurnAngle);
         // rotate the camera
-        transform.eulerAngles = new Vector3(-rotX, transform.eulerAngles.y + y, 0);
+        transform.eulerAngles = new Vector3(-rotX, transform.eulerAngles.y + y, transform.eulerAngles.z);
         lastMouse = currMouse;
         // input
 
@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKey(KeyCode.LeftAlt))
             {
-                rb.velocity = rb.velocity / 4;
+                rb.velocity = rb.velocity / 4;  
             }
         }
 
