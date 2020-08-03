@@ -16,6 +16,6 @@ public class AppManager : MonoBehaviour
     private void Init()
     {
         _PlayerInstance = Instantiate(_PlayerPrefab);
-        _PlayerInstance.transform.SetPositionAndRotation(_PlayerSpawn.position, _PlayerSpawn.rotation);
+        _PlayerInstance.transform.SetPositionAndRotation(new Vector3(_PlayerSpawn.position.x,_PlayerSpawn.position.y + 2,_PlayerSpawn.position.z), _PlayerSpawn.rotation);
     }
 }
