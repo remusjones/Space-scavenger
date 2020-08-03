@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4769463273534060176}
   - component: {fileID: 4769463273534060180}
   - component: {fileID: 4769463273534060178}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GenericLever
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 9047339676383924818}
   - component: {fileID: 9047339676383924847}
   - component: {fileID: 9047339676383924816}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 9047339676718700047}
   - component: {fileID: 9047339676718700044}
   - component: {fileID: 9047339676718700045}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -318,7 +318,7 @@ GameObject:
   - component: {fileID: 9047339677144353758}
   - component: {fileID: 9047339677144353755}
   - component: {fileID: 9047339677144353756}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -397,7 +397,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9047339677312464536}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Lever
   m_TagString: Untagged
   m_Icon: {fileID: 0}

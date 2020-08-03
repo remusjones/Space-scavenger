@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 81f714daf7144784b8a2f42f1cd30927, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_MeshFormatVersion: 1
   m_Faces:
   - m_Indexes: 000000000100000002000000010000000300000002000000
-    m_SmoothingGroup: 0
+    m_SmoothingGroup: 4
     m_Uv:
       m_UseWorldSpace: 0
       m_FlipU: 0
@@ -189,7 +189,7 @@ MonoBehaviour:
     elementGroup: -1
     m_TextureGroup: -1
   - m_Indexes: 040000000500000006000000050000000700000006000000
-    m_SmoothingGroup: 0
+    m_SmoothingGroup: 4
     m_Uv:
       m_UseWorldSpace: 0
       m_FlipU: 0
@@ -333,14 +333,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: GenericLever (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4769463273534060179, guid: 2b033789fa81ef34da621cd5579596ec, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4769463273534060180, guid: 2b033789fa81ef34da621cd5579596ec, type: 3}
       propertyPath: _ButtonEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 125405853}
-    - target: {fileID: 4769463273534060180, guid: 2b033789fa81ef34da621cd5579596ec, type: 3}
-      propertyPath: _ButtonEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetTrigger
-      objectReference: {fileID: 0}
     - target: {fileID: 4769463273534060183, guid: 2b033789fa81ef34da621cd5579596ec, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.41
@@ -384,6 +384,22 @@ PrefabInstance:
     - target: {fileID: 4769463273534060183, guid: 2b033789fa81ef34da621cd5579596ec, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9047339676383924819, guid: 2b033789fa81ef34da621cd5579596ec, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9047339676718700144, guid: 2b033789fa81ef34da621cd5579596ec, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9047339677144353759, guid: 2b033789fa81ef34da621cd5579596ec, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9047339677312464537, guid: 2b033789fa81ef34da621cd5579596ec, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b033789fa81ef34da621cd5579596ec, type: 3}
@@ -812,7 +828,7 @@ Mesh:
       format: 0
       dimension: 0
     m_DataSize: 384
-    _typelessdata: 20f1efbe1828f13f845b2a4064917dbfa9d00c3e000000000000000000000000000080bf000080bf845b2ac0df9de63f20f1efbe1828f13fccbd6ac064917dbfa9d00c3e000000000000000000000000000080bf000080bfccbd6a40df9de63fa01138bfa0ffa43dccbd6ac064917dbfa9d00c3e000000000000000000000000000080bf000080bfccbd6a4001449cbca01138bfa0ffa43d845b2a4064917dbfa9d00c3e000000000000000000000000000080bf000080bf845b2ac001449cbc807a24bfa2a26f40845b2a40a6e37ebf9892bebd000000000000000000000000000080bf000080bf845b2ac0fe6b7240807a24bfa2a26f40ccbd6ac0a6e37ebf9892bebd000000000000000000000000000080bf000080bfccbd6a40fe6b724020f1efbe1828f13fccbd6ac0a6e37ebf9892bebd000000000000000000000000000080bf000080bfccbd6a402eb1f53f20f1efbe1828f13f845b2a40a6e37ebf9892bebd000000000000000000000000000080bf000080bf845b2ac02eb1f53f
+    _typelessdata: 20f1efbe1828f13f845b2a4096ef7fbf8b56b73c000000000000000000000000000080bf000080bf845b2ac0df9de63f20f1efbe1828f13fccbd6ac096ef7fbf8b56b73c000000000000000000000000000080bf000080bfccbd6a40df9de63fa01138bfa0ffa43dccbd6ac064917dbfa9d00c3e000000000000000000000000000080bf000080bfccbd6a4001449cbca01138bfa0ffa43d845b2a4064917dbfa9d00c3e000000000000000000000000000080bf000080bf845b2ac001449cbc807a24bfa2a26f40845b2a40a6e37ebf9892bebd000000000000000000000000000080bf000080bf845b2ac0fe6b7240807a24bfa2a26f40ccbd6ac0a6e37ebf9892bebd000000000000000000000000000080bf000080bfccbd6a40fe6b724020f1efbe1828f13fccbd6ac096ef7fbf8b56b73c000000000000000000000000000080bf000080bfccbd6a402eb1f53f20f1efbe1828f13f845b2a4096ef7fbf8b56b73c000000000000000000000000000080bf000080bf845b2ac02eb1f53f
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 0
@@ -1108,7 +1124,7 @@ MonoBehaviour:
   m_MeshFormatVersion: 1
   m_Faces:
   - m_Indexes: 020000000300000001000000020000000100000000000000
-    m_SmoothingGroup: 0
+    m_SmoothingGroup: 5
     m_Uv:
       m_UseWorldSpace: 0
       m_FlipU: 0
@@ -1125,7 +1141,7 @@ MonoBehaviour:
     elementGroup: -1
     m_TextureGroup: -1
   - m_Indexes: 060000000700000005000000060000000500000004000000
-    m_SmoothingGroup: 0
+    m_SmoothingGroup: 5
     m_Uv:
       m_UseWorldSpace: 0
       m_FlipU: 0
@@ -1476,7 +1492,7 @@ Mesh:
       format: 0
       dimension: 0
     m_DataSize: 384
-    _typelessdata: a011383fa0ffa43d845b2a4064917d3fa9d00c3e0000000000000000000000000000803f000080bf845b2a4001449cbca011383fa0ffa43dccbd6ac064917d3fa9d00c3e0000000000000000000000000000803f000080bfccbd6ac001449cbc20f1ef3e1828f13f845b2a4064917d3fa9d00c3e0000000000000000000000000000803f000080bf845b2a40df9de63f20f1ef3e1828f13fccbd6ac064917d3fa9d00c3e0000000000000000000000000000803f000080bfccbd6ac0df9de63f20f1ef3e1828f13f845b2a40a6e37e3f9892bebd0000000000000000000000000000803f000080bf845b2a402eb1f53f20f1ef3e1828f13fccbd6ac0a6e37e3f9892bebd0000000000000000000000000000803f000080bfccbd6ac02eb1f53f807a243fa2a26f40845b2a40a6e37e3f9892bebd0000000000000000000000000000803f000080bf845b2a40fe6b7240807a243fa2a26f40ccbd6ac0a6e37e3f9892bebd0000000000000000000000000000803f000080bfccbd6ac0fe6b7240
+    _typelessdata: a011383fa0ffa43d845b2a4064917d3fa9d00c3e0000000000000000000000000000803f000080bf845b2a4001449cbca011383fa0ffa43dccbd6ac064917d3fa9d00c3e0000000000000000000000000000803f000080bfccbd6ac001449cbc20f1ef3e1828f13f845b2a4096ef7f3f8b56b73c0000000000000000000000000000803f000080bf845b2a40df9de63f20f1ef3e1828f13fccbd6ac096ef7f3f8b56b73c0000000000000000000000000000803f000080bfccbd6ac0df9de63f20f1ef3e1828f13f845b2a4096ef7f3f8b56b73c0000000000000000000000000000803f000080bf845b2a402eb1f53f20f1ef3e1828f13fccbd6ac096ef7f3f8b56b73c0000000000000000000000000000803f000080bfccbd6ac02eb1f53f807a243fa2a26f40845b2a40a6e37e3f9892bebd0000000000000000000000000000803f000080bf845b2a40fe6b7240807a243fa2a26f40ccbd6ac0a6e37e3f9892bebd0000000000000000000000000000803f000080bfccbd6ac0fe6b7240
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 0
@@ -1631,6 +1647,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8622122121320042299, guid: 29a46fc88d2f05f42a4d59eb307f6a14, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a6064564876da6f48a897fc500775604, type: 2}
     - target: {fileID: 8622122121498417377, guid: 29a46fc88d2f05f42a4d59eb307f6a14, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1679,6 +1699,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ship
       objectReference: {fileID: 0}
+    - target: {fileID: 8622122121600193526, guid: 29a46fc88d2f05f42a4d59eb307f6a14, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a6064564876da6f48a897fc500775604, type: 2}
     - target: {fileID: 8622122121781057728, guid: 29a46fc88d2f05f42a4d59eb307f6a14, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1712,10 +1736,6 @@ PrefabInstance:
       propertyPath: _ButtonEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 125405853}
-    - target: {fileID: 4769463273534060180, guid: 2b033789fa81ef34da621cd5579596ec, type: 3}
-      propertyPath: _ButtonEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetTrigger
-      objectReference: {fileID: 0}
     - target: {fileID: 4769463273534060183, guid: 2b033789fa81ef34da621cd5579596ec, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.35

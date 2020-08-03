@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
             Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("UpDown"), Input.GetAxis("Vertical"));
 
             float pitch = Input.GetAxis("Pitch");
-            rb.AddRelativeTorque((new Vector3(0, pitch, 0) * pitchAccel) * Time.fixedDeltaTime, ForceMode.Force);
+            //rb.AddRelativeTorque((new Vector3(0, pitch, 0) * pitchAccel) * Time.fixedDeltaTime, ForceMode.Force);
             rb.AddRelativeForce((new Vector3(movement.x, movement.y, movement.z) * directionAccel) * Time.fixedDeltaTime, ForceMode.Force);
 
             rb.angularVelocity = residualVelocity;
@@ -85,19 +85,23 @@ public class PlayerController : MonoBehaviour
             if (hit.collider.GetComponent<IObjectInteract>() != null)
             {
                 _InteractMarker.enabled = true;
-                if(MouseDown())
+                _DefaultMarker.enabled = false;
+                if (InteractionButtonDown())
+                {
                     hit.collider.GetComponent<IObjectInteract>().Interact();
+                }
             }
             else
             {
                 _InteractMarker.enabled = false;
+                _DefaultMarker.enabled = true;
             }
         }
         Debug.DrawRay(transform.position, transform.forward);
     }
 
-    bool MouseDown()
+    bool InteractionButtonDown()
     {
-        return Input.GetMouseButtonDown(0);
+        return Input.GetKey(KeyCode.E);
     }
 }
