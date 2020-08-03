@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, _InteractRange, _InteractLayer))
         {
-            Debug.Log(hit.collider.name);
             if (hit.collider.GetComponent<IObjectInteract>() != null)
             {
                 if(MouseDown())
