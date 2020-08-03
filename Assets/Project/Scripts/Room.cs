@@ -10,24 +10,48 @@ public class Room : MonoBehaviour, IRoom
     [SerializeField]
     List<Room> m_connectedRooms = new List<Room>();
     public bool isSpace = false;
+    [SerializeField]
     float currentOxygen = 1f;
     float oxygenLossRate = 10f;
 
     bool hasChangedBreached = false;
 
-    public List<Room> GetConnectedRooms(Room room)
+    public List<Room> GetConnectedRooms(Room room, Door ignoreDoor)
     {
         List<Door> openDoors = GetOpenDoors(room);
         List<Room> connectedRooms = new List<Room>();
         foreach(Door door in openDoors)
         {
-           foreach(Room otherRoom in door.m_connectedRooms)
-           {
-              
-           }
+            if (door == ignoreDoor)
+                continue;
+
+            foreach(Room otherRoom in door.m_connectedRooms)
+            {
+                if (otherRoom != room)
+                {
+                    connectedRooms.AddRange(room.GetConnectedRooms(otherRoom,door));
+                }
+            }
         }
         return connectedRooms;
     }
+    public List<Room> GetConnectedRooms(Room room)
+    {
+        List<Door> openDoors = GetOpenDoors(room);
+        List<Room> connectedRooms = new List<Room>();
+        foreach (Door door in openDoors)
+        {
+            foreach (Room otherRoom in door.m_connectedRooms)
+            {
+                if (otherRoom != room)
+                {
+                    connectedRooms.AddRange(room.GetConnectedRooms(otherRoom, door));
+                }
+            }
+        }
+        return connectedRooms;
+    }
+
 
     public List<Door> GetOpenDoors(Room room)
     {
@@ -39,6 +63,9 @@ public class Room : MonoBehaviour, IRoom
         }
         return openDoors;
     }
+
+
+
 
     public float GetOxygenVolume(Room room)
     {
@@ -59,7 +86,6 @@ public class Room : MonoBehaviour, IRoom
         {
             return true;
         }
-
        
         List<Door> doors = GetOpenDoors(room);
         foreach(Door door in doors)
@@ -126,8 +152,8 @@ public class Room : MonoBehaviour, IRoom
         if (foundBreach)
         {
             // start oxygen evacuation measures . .
-            // IEnumerator breach = HandleOxygenBreach(breachedRoom, rooms);
-            // StartCoroutine(breach);
+            IEnumerator breach = HandleOxygenBreach(breachedRoom, rooms);
+            StartCoroutine(breach);
             Debug.LogError("der were breach");
         }
         else
@@ -151,8 +177,10 @@ public class Room : MonoBehaviour, IRoom
         {  
             // seep oxygen
             oxygenRemaining -= oxygenLossRate * Time.fixedDeltaTime;
+            int otherRoomsCount = otherRooms.Count + 1;
             foreach(Room room in otherRooms)
             {
+      
                 room.currentOxygen = oxygenRemaining / otherRooms.Count;
 
                 if (room.currentOxygen < 0f)
@@ -166,11 +194,13 @@ public class Room : MonoBehaviour, IRoom
                 Rigidbody rb = otherCol.GetComponent<Rigidbody>();
                 if (rb)
                 {
-                    rb.AddForce((targetRoom.transform.position - rb.transform.position) * oxygenRemaining, ForceMode.Impulse);
+                    rb.AddForce((rb.transform.position - targetRoom.transform.position) * oxygenRemaining, ForceMode.Impulse);
                 }
             }
-
             
+            this.currentOxygen = oxygenRemaining / otherRoomsCount;
+
+
             yield return new WaitForFixedUpdate();
         }
 

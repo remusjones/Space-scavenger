@@ -6,6 +6,7 @@ public interface IRoom
 {
     List<Door> GetOpenDoors(Room room);
 
+    List<Room> GetConnectedRooms(Room room, Door ignoreDoor);
     List<Room> GetConnectedRooms(Room room);
     float GetOxygenVolume(Room room);
 
