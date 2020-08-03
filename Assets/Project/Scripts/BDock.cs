@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
-[RequireComponent(typeof(Rigidbody))]
 public class BDock : MonoBehaviour, IDock
 {
     [SerializeField]
@@ -15,6 +14,8 @@ public class BDock : MonoBehaviour, IDock
     bool ignoreMagnitise = false;
     private BDock m_dockTarget = null;
     IEnumerator dockingRoutine = null;
+    [SerializeField]
+    Rigidbody rb;
    
 
     public bool CanDock(Vector3 location, float checkDistance, Transform closestDock)
@@ -56,7 +57,7 @@ public class BDock : MonoBehaviour, IDock
             if (ignoreMagnitise == true)
                 return;
             Debug.Log("test");
-            dockingRoutine = DockingLoop(other.transform, GetComponent<Rigidbody>());
+            dockingRoutine = DockingLoop(other.transform, rb);
             StartCoroutine(dockingRoutine);
         }
     }
