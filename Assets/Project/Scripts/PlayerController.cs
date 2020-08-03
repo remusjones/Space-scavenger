@@ -37,9 +37,9 @@ public class PlayerController : MonoBehaviour
     public Image _InteractMarker;
     public Image _DefaultMarker;
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-
+        Cursor.lockState = CursorLockMode.Locked;
         float mX = Input.GetAxis("Mouse X");
         float mY = Input.GetAxis("Mouse Y");
         Vector2 currMouse = new Vector2(mX, mY);
