@@ -7,6 +7,7 @@ using UnityEngine;
 public class Ship : MonoBehaviour
 {
 
+    public bool isPlayerDriving = false;
 
     // Start is called before the first frame update
     Vector2 lastMouseFrame = new Vector2();
@@ -36,6 +37,8 @@ public class Ship : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
+        if (!isPlayerDriving)
+            return;
         input = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("UpDown"), Input.GetAxis("Vertical"));
         float pitch = Input.GetAxis("Pitch");
         currMouse = Input.mousePosition;
