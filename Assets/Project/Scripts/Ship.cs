@@ -54,4 +54,8 @@ public class Ship : MonoBehaviour
             rb.velocity = rb.velocity / 4;
         }
     }
+    public void EnableShipControls(bool isEnabled)
+    {
+        isPlayerDriving = isEnabled;
+    }
 }

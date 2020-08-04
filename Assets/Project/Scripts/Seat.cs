@@ -11,6 +11,8 @@ public class Seat : MonoBehaviour,IObjectInteract
     {
         player._Seated = true;
         player.transform.SetPositionAndRotation(_SeatAnchor.position,_SeatAnchor.rotation);
+        player.transform.SetParent(transform);
+        player.GetComponent<Rigidbody>().isKinematic = true;
         _SeatEvent.Invoke();
     }
 
