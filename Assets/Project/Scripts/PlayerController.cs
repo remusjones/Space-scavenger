@@ -33,10 +33,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float pitchAccel = 80f;
 
+    private VignetteController vignetteController = null;
+
     private void Start()
     {
         _StartDirectionAccelleration = directionAccel;
         rb = this.GetComponent<Rigidbody>();
+        vignetteController = GameObject.FindObjectOfType<VignetteController>();
     }
     public Image _InteractMarker;
     public Image _DefaultMarker;
@@ -72,6 +75,12 @@ public class PlayerController : MonoBehaviour
         }else
         {
             residualVelocity -= ((residualVelocity * residualDeductionMultiplier) * Time.deltaTime);
+        }
+
+        if (vignetteController)
+        {
+
+            vignetteController.HandleTurnAcceleration(residualVelocity);
         }
 
          float y = ((mX + residualVelocity.x) * turnSpeed);
