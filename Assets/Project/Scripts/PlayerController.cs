@@ -33,10 +33,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float pitchAccel = 80f;
 
+    private VignetteController vignetteController = null;
+
     private void Start()
     {
         _StartDirectionAccelleration = directionAccel;
         rb = this.GetComponent<Rigidbody>();
+        vignetteController = GameObject.FindObjectOfType<VignetteController>();
     }
     public Image _InteractMarker;
     public Image _DefaultMarker;
@@ -74,11 +77,17 @@ public class PlayerController : MonoBehaviour
             residualVelocity -= ((residualVelocity * residualDeductionMultiplier) * Time.deltaTime);
         }
 
+        if (vignetteController)
+        {
+
+            vignetteController.HandleTurnAcceleration(residualVelocity);
+        }
+
          float y = ((mX + residualVelocity.x) * turnSpeed);
          rotX = ((mY + residualVelocity.y) * turnSpeed);
         rotX = Mathf.Clamp(rotX, minTurnAngle, maxTurnAngle);
         this.transform.Rotate(Vector3.up, y, Space.Self);
-        //rotate around local x;
+       // //rotate around local x;
         this.transform.Rotate(Vector3.right, -rotX, Space.Self);
 
 
@@ -90,10 +99,10 @@ public class PlayerController : MonoBehaviour
             Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("UpDown"), Input.GetAxis("Vertical"));
 
             float pitch = Input.GetAxis("Pitch");
-            rb.AddRelativeTorque((new Vector3(0, 0, -pitch) * pitchAccel) * Time.fixedDeltaTime, ForceMode.Force);
+            //rb.AddRelativeTorque((new Vector3(0, 0, -pitch) * pitchAccel) * Time.fixedDeltaTime, ForceMode.Acceleration);
             rb.AddRelativeForce((new Vector3(movement.x, movement.y, movement.z) * directionAccel) * Time.fixedDeltaTime, ForceMode.Force);
 
-            rb.angularVelocity = residualVelocity;
+            rb.angularVelocity = new Vector3(rb.angularVelocity.x +  (residualVelocity.y / 10), rb.angularVelocity.y + (residualVelocity.x / 10), rb.angularVelocity.z);
 
             if (Input.GetKey(KeyCode.LeftAlt))
             {
