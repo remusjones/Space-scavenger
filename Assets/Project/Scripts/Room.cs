@@ -14,7 +14,6 @@ public class Room : MonoBehaviour, IRoom
     float currentOxygen = 1f;
     float oxygenLossRate = 10f;
 
-    bool hasChangedBreached = false;
 
     public List<Room> GetConnectedRooms(Room room, Door ignoreDoor)
     {
