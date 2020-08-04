@@ -10663,7 +10663,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 257
   camSens: 0.25
-  turnSpeed: 4
+  turnSpeed: 1
   moveSpeed: 2
   minTurnAngle: -90
   maxTurnAngle: 90
@@ -10671,7 +10671,7 @@ MonoBehaviour:
   residualDivider: 8
   residualDeductionMultiplier: 5
   _StartDirectionAccelleration: 0
-  pitchAccel: 240
+  pitchAccel: 160
   _InteractMarker: {fileID: 8800324772420758031}
   _DefaultMarker: {fileID: 3455149872751196339}
 --- !u!54 &-2958066768259162604

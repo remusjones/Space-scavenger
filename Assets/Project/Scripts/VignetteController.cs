@@ -73,7 +73,6 @@ public class VignetteController : MonoBehaviour
         if (y == 0f)
             yOffset = 0.5f;
 
-        Debug.Log(new Vector2(xOffset, yOffset));
         vignette.center.SetValue(new UnityEngine.Rendering.Vector2Parameter(new Vector2(xOffset, yOffset),true));
     }
 

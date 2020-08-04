@@ -21520,14 +21520,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -2958066768259162604, guid: 9c93a31e7a76e81409ba7764a53ddff5, type: 3}
-      propertyPath: m_Constraints
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5330389476163645795, guid: 9c93a31e7a76e81409ba7764a53ddff5, type: 3}
-      propertyPath: pitchAccel
-      value: 160
-      objectReference: {fileID: 0}
     - target: {fileID: 9052614535759715635, guid: 9c93a31e7a76e81409ba7764a53ddff5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.76
