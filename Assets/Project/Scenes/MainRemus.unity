@@ -11962,7 +11962,7 @@ Light:
   m_BounceIntensity: 0
   m_ColorTemperature: 1000
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: 4.6646e-41, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 8.31e-43, y: 7.1e-44, z: 0, w: -13.201622}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -21476,6 +21476,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2958066768259162604, guid: 9c93a31e7a76e81409ba7764a53ddff5, type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330389476163645795, guid: 9c93a31e7a76e81409ba7764a53ddff5, type: 3}
+      propertyPath: pitchAccel
+      value: 240
+      objectReference: {fileID: 0}
     - target: {fileID: 9052614535759715635, guid: 9c93a31e7a76e81409ba7764a53ddff5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.76
@@ -28384,7 +28392,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2086554205}
   serializedVersion: 6
-  lengthInSec: 2
+  lengthInSec: 2.01
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0

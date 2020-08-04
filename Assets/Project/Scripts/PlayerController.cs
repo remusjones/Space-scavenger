@@ -30,8 +30,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float _StartDirectionAccelleration;
     float directionAccel = 100f;
-    //[SerializeField]
-    //float pitchAccel = 80f;
+    [SerializeField]
+    float pitchAccel = 80f;
 
     private void Start()
     {
@@ -79,13 +79,13 @@ public class PlayerController : MonoBehaviour
         }
 
          float y = ((mX + residualVelocity.x) * turnSpeed);
-         rotX += ((mY + residualVelocity.y) * turnSpeed);
-        // float y = ((mX) * turnSpeed);
-         //rotX += ((mY) * turnSpeed);
-        // clamp the vertical rotation
+         rotX = ((mY + residualVelocity.y) * turnSpeed);
         rotX = Mathf.Clamp(rotX, minTurnAngle, maxTurnAngle);
-        // rotate the camera
-        transform.eulerAngles = new Vector3(-rotX, transform.eulerAngles.y + y, transform.eulerAngles.z);
+        this.transform.Rotate(Vector3.up, y, Space.Self);
+        //rotate around local x;
+        this.transform.Rotate(Vector3.right, -rotX, Space.Self);
+
+
         lastMouse = currMouse;
         // input
 
@@ -94,14 +94,14 @@ public class PlayerController : MonoBehaviour
             Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("UpDown"), Input.GetAxis("Vertical"));
 
             float pitch = Input.GetAxis("Pitch");
-            //rb.AddRelativeTorque((new Vector3(0, pitch, 0) * pitchAccel) * Time.fixedDeltaTime, ForceMode.Force);
+            rb.AddRelativeTorque((new Vector3(0, 0, -pitch) * pitchAccel) * Time.fixedDeltaTime, ForceMode.Force);
             rb.AddRelativeForce((new Vector3(movement.x, movement.y, movement.z) * directionAccel) * Time.fixedDeltaTime, ForceMode.Force);
 
             rb.angularVelocity = residualVelocity;
 
             if (Input.GetKey(KeyCode.LeftAlt))
             {
-                rb.velocity = rb.velocity / 4;  
+                rb.velocity = rb.velocity - ((rb.velocity * 4) * Time.deltaTime);  
             }
         }
 

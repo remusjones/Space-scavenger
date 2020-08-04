@@ -140,10 +140,11 @@ public class BTool : MonoBehaviour, ITool
             ApplyKnockback(playerRigidbody, 1f);
         }else
         {
+            weaponLineRenderer.enabled = false;
             if (particleToPlayOnCollisionRayHit.isPlaying)
             {
                 particleToPlayOnCollisionRayHit.Stop(true);
-                weaponLineRenderer.enabled = false;
+               
 
                 foreach(Light light in particleToPlayOnCollisionRayHit.GetComponentsInChildren<Light>())
                 {
