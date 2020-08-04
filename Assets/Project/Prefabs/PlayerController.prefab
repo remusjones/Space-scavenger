@@ -10671,6 +10671,7 @@ MonoBehaviour:
   residualDivider: 8
   residualDeductionMultiplier: 5
   _StartDirectionAccelleration: 0
+  pitchAccel: 240
   _InteractMarker: {fileID: 8800324772420758031}
   _DefaultMarker: {fileID: 3455149872751196339}
 --- !u!54 &-2958066768259162604
@@ -10687,7 +10688,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 64
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!135 &-2208637817735348245
 SphereCollider:
