@@ -15,7 +15,7 @@ public class BDock : MonoBehaviour, IDock
     private BDock m_dockTarget = null;
     IEnumerator dockingRoutine = null;
     [SerializeField]
-    Rigidbody rb;
+    Rigidbody rb = null;
    
 
     public bool CanDock(Vector3 location, float checkDistance, Transform closestDock)

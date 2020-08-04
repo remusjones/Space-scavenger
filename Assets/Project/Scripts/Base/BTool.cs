@@ -10,6 +10,8 @@ public class BTool : MonoBehaviour, ITool
     protected Transform weaponNozzle = null;
     [SerializeField]
     private LineRenderer weaponLineRenderer = null;
+    [SerializeField]
+    protected ParticleSystem particleToPlayOnCollisionRayHit = null;
 
     [SerializeField]
     protected Rigidbody playerRigidbody = null;
@@ -85,14 +87,25 @@ public class BTool : MonoBehaviour, ITool
         }
         // do projectile/raycast here
         RaycastHit hit;
-        if (Physics.Raycast(weaponNozzle.position,Vector3.forward, out hit, range))
+        if (Physics.Raycast(weaponNozzle.position, weaponNozzle.forward, out hit, range))
         {
-            Vector3 point = hit.point;
-            Vector3[] vecs = new Vector3[2] { weaponNozzle.position, (weaponNozzle.forward * range) };
+
+            Vector3[] vecs = new Vector3[2] { weaponNozzle.position, hit.point };
+            Vector3 backDir = (hit.point - weaponNozzle.position) * 0.1f;
+
+            particleToPlayOnCollisionRayHit.transform.position = hit.point - backDir;
+            particleToPlayOnCollisionRayHit.transform.LookAt(playerRigidbody.transform, Vector3.up);
+
+
+            if (!particleToPlayOnCollisionRayHit.isPlaying)
+            {
+                particleToPlayOnCollisionRayHit.Play(true);
+            }
             if (weaponLineRenderer)
             {
                 weaponLineRenderer.SetPositions(vecs);
             }
+
             IDamageable damageable = hit.transform.GetComponent<IDamageable>();
             if (damageable != null)
             {
@@ -100,7 +113,14 @@ public class BTool : MonoBehaviour, ITool
             }
         }else
         {
-            
+            if (particleToPlayOnCollisionRayHit.isPlaying)
+            {
+                particleToPlayOnCollisionRayHit.Stop(true);
+                foreach (Light light in particleToPlayOnCollisionRayHit.GetComponentsInChildren<Light>())
+                {
+                    light.enabled = false;
+                }
+            }
             Vector3[] vecs = new Vector3[2] { weaponNozzle.position, weaponNozzle.position + (weaponNozzle.forward * range) };
             if (weaponLineRenderer)
             {
@@ -118,6 +138,18 @@ public class BTool : MonoBehaviour, ITool
             weaponLineRenderer.enabled = true;
             Shoot(damage, 1f, 1f * Time.deltaTime);
             ApplyKnockback(playerRigidbody, 1f);
+        }else
+        {
+            if (particleToPlayOnCollisionRayHit.isPlaying)
+            {
+                particleToPlayOnCollisionRayHit.Stop(true);
+                weaponLineRenderer.enabled = false;
+
+                foreach(Light light in particleToPlayOnCollisionRayHit.GetComponentsInChildren<Light>())
+                {
+                    light.enabled = false;
+                }
+            }
         }
         //if (Input.GetMouseButtonDown(1))
         //{
@@ -125,8 +157,7 @@ public class BTool : MonoBehaviour, ITool
         //    Shoot(damage, 5f);
         //    ApplyKnockback(playerRigidbody, playerKnockback);
         //}
-        else
-            weaponLineRenderer.enabled = false;
+   
 
 
         if (Input.GetKeyDown(KeyCode.R))

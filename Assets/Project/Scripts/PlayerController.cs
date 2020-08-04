@@ -30,8 +30,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float _StartDirectionAccelleration;
     float directionAccel = 100f;
-    [SerializeField]
-    float pitchAccel = 80f;
+    //[SerializeField]
+    //float pitchAccel = 80f;
 
     private void Start()
     {
