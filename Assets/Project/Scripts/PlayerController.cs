@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         Cursor.lockState = CursorLockMode.Locked;
-
+        rb.angularVelocity -= rb.angularVelocity / 10;
         float mX = Input.GetAxis("Mouse X");
         float mY = Input.GetAxis("Mouse Y");
         Vector2 currMouse = new Vector2(mX, mY);
@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
             Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("UpDown"), Input.GetAxis("Vertical"));
 
             float pitch = Input.GetAxis("Pitch");
-            //rb.AddRelativeTorque((new Vector3(0, 0, -pitch) * pitchAccel) * Time.fixedDeltaTime, ForceMode.Acceleration);
+            rb.AddRelativeTorque((new Vector3(0, 0, -pitch) * pitchAccel) * Time.fixedDeltaTime, ForceMode.Acceleration);
             rb.AddRelativeForce((new Vector3(movement.x, movement.y, movement.z) * directionAccel) * Time.fixedDeltaTime, ForceMode.Force);
 
             rb.angularVelocity = new Vector3(rb.angularVelocity.x +  (residualVelocity.y / 10), rb.angularVelocity.y + (residualVelocity.x / 10), rb.angularVelocity.z);
