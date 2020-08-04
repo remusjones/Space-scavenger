@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
+    public bool _Seated = false;
     public float _InteractRange;
     public LayerMask _InteractLayer;
 
     public float camSens = 0.25f; //How sensitive it with mouse
     public float turnSpeed = 1.0f;
+    
     public float moveSpeed = 2.0f;
 
     public float minTurnAngle = -90.0f;
@@ -26,20 +28,45 @@ public class PlayerController : MonoBehaviour
     float residualDeductionMultiplier = 5f;
     private Rigidbody rb;
     [SerializeField]
+    private float _StartDirectionAccelleration;
     float directionAccel = 100f;
     [SerializeField]
     float pitchAccel = 80f;
 
     private void Start()
     {
+        _StartDirectionAccelleration = directionAccel;
         rb = this.GetComponent<Rigidbody>();
     }
     public Image _InteractMarker;
     public Image _DefaultMarker;
+
+    private void Update()
+    {
+        if (_Seated)
+        {
+            maxTurnAngle = 45;
+            minTurnAngle = -45;
+            rb.isKinematic = true;
+            directionAccel = 0;
+            if (InteractionButtonDown())
+            {
+                _Seated = false;
+            }
+        }
+        else
+        {
+            maxTurnAngle = 90;
+            minTurnAngle = -90;
+            rb.isKinematic = false;
+            directionAccel = _StartDirectionAccelleration;
+        }
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
         Cursor.lockState = CursorLockMode.Locked;
+
         float mX = Input.GetAxis("Mouse X");
         float mY = Input.GetAxis("Mouse Y");
         Vector2 currMouse = new Vector2(mX, mY);
@@ -86,9 +113,9 @@ public class PlayerController : MonoBehaviour
             {
                 _InteractMarker.enabled = true;
                 _DefaultMarker.enabled = false;
-                if (InteractionButtonDown())
+                if (InteractionButton())
                 {
-                    hit.collider.GetComponent<IObjectInteract>().Interact();
+                    hit.collider.GetComponent<IObjectInteract>().Interact(this);
                 }
             }
             else
@@ -100,8 +127,12 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(transform.position, transform.forward);
     }
 
-    bool InteractionButtonDown()
+    bool InteractionButton()
     {
         return Input.GetKey(KeyCode.E);
+    }
+    bool InteractionButtonDown()
+    {
+        return Input.GetKeyDown(KeyCode.E);
     }
 }
