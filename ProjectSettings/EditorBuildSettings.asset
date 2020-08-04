@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Project/Scenes/MainRemus.unity
+    guid: 82c55cc5ceec9cb40a53e33d1de6807a
   m_configObjects: {}
