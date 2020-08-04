@@ -25,6 +25,7 @@ public class Ship : MonoBehaviour
     [SerializeField]
     float pitchAccel = 80f;
 
+
     void Start()
     {
         rb = this.GetComponent<Rigidbody>();
