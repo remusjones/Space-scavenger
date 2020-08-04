@@ -45,8 +45,6 @@ public class PlayerController : MonoBehaviour
     {
         if (_Seated)
         {
-            maxTurnAngle = 45;
-            minTurnAngle = -45;
             rb.isKinematic = true;
             directionAccel = 0;
             if (InteractionButtonDown())
@@ -56,8 +54,6 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            maxTurnAngle = 90;
-            minTurnAngle = -90;
             rb.isKinematic = false;
             directionAccel = _StartDirectionAccelleration;
         }
