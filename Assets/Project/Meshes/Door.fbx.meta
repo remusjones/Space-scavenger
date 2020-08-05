@@ -1,8 +1,11 @@
 fileFormatVersion: 2
-guid: 4b083e8f014fed7439446608212defc7
+guid: e0abddd62db228e4c9de73bb3d4921ee
 ModelImporter:
   serializedVersion: 20101
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: -7924614153186651571
+    second: RightDoor|Cube.001Action
   externalObjects: {}
   materials:
     materialImportMode: 1
