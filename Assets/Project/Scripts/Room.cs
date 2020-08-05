@@ -195,7 +195,7 @@ public class Room : MonoBehaviour, IRoom
         while(oxygenRemaining > 0)
         {  
             // seep oxygen
-            oxygenRemaining -= Time.fixedDeltaTime;
+            oxygenRemaining -= oxygenLossRate * Time.fixedDeltaTime;
             int otherRoomsCount = otherRooms.Count + 1;
             foreach(Room room in otherRooms)
             {

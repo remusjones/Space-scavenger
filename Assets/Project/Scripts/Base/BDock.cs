@@ -17,8 +17,6 @@ public class BDock : MonoBehaviour, IDock
     [SerializeField]
     Rigidbody rb = null;
 
-    [SerializeField]
-    bool isMagnatising = false;
    
 
     public bool CanDock(Vector3 location, float checkDistance, Transform closestDock)
@@ -43,7 +41,6 @@ public class BDock : MonoBehaviour, IDock
         {
             HandleMagnatise(rigidbody, otherObject);
 
-            isMagnatising = true;
             // exits, and waits.. 
             yield return new WaitForFixedUpdate();
         }
@@ -71,7 +68,6 @@ public class BDock : MonoBehaviour, IDock
         {
             StopAllCoroutines();
             m_dockTarget = null;
-            isMagnatising = false;
         }
     }
 

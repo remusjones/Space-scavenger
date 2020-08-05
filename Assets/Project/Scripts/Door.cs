@@ -7,7 +7,6 @@ public class Door : MonoBehaviour, IDoor
 
     [SerializeField]
     bool m_isDoorOpen = false;
-    private bool lastVal = false;
     public List<Room> m_connectedRooms = new List<Room>();
 
     public List<Room> getConnectedRooms()
