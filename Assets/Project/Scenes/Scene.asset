@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 953beb541740ddc499d005ee80c9ff29, type: 3}
   m_Name: Fog
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   enabled:
     m_OverrideState: 1
@@ -300,7 +300,7 @@ MonoBehaviour:
     showEyeDropper: 1
   center:
     m_OverrideState: 1
-    m_Value: {x: 0.5001879, y: 0.5003579}
+    m_Value: {x: 0.5004308, y: 0.5003203}
   intensity:
     m_OverrideState: 1
     m_Value: 0.488
