@@ -137,7 +137,7 @@ public class BTool : MonoBehaviour, ITool
         {
             weaponLineRenderer.enabled = true;
             Shoot(damage, 1f, 1f * Time.deltaTime);
-            ApplyKnockback(playerRigidbody, 1f);
+            ApplyKnockback(playerRigidbody, playerKnockback);
         }else
         {
             weaponLineRenderer.enabled = false;
