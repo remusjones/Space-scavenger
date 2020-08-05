@@ -42,6 +42,7 @@ public class Ship : MonoBehaviour
     public float moveSpeed = 2.0f;
     public float minTurnAngle = -90.0f;
     public float maxTurnAngle = 90.0f;
+    public float angularVelocityReduction = 100f;
 
     void Start()
     {
@@ -60,7 +61,7 @@ public class Ship : MonoBehaviour
 
 
         Cursor.lockState = CursorLockMode.Locked;
-        rb.angularVelocity -= rb.angularVelocity / 10;
+        rb.angularVelocity -= rb.angularVelocity / angularVelocityReduction;
         float mX = Input.GetAxis("Mouse X");
         float mY = Input.GetAxis("Mouse Y");
         float pitch = Input.GetAxis("Pitch");
