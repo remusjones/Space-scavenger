@@ -13,8 +13,11 @@ public class Room : MonoBehaviour, IRoom
     [SerializeField]
     float currentOxygen = 1f;
     float oxygenLossRate = 10f;
+    [SerializeField]
+    float rigidBodyEjectionForce = 3f;
+    int layer = (1 << 0);
 
-
+    IEnumerator breach;
     public List<Room> GetConnectedRooms(Room room, Door ignoreDoor)
     {
         List<Door> openDoors = GetOpenDoors(room);
@@ -22,13 +25,19 @@ public class Room : MonoBehaviour, IRoom
         foreach(Door door in openDoors)
         {
             if (door == ignoreDoor)
+            {
                 continue;
+            }
 
             foreach(Room otherRoom in door.m_connectedRooms)
             {
                 if (otherRoom != room)
                 {
-                    connectedRooms.AddRange(room.GetConnectedRooms(otherRoom,door));
+                    if (connectedRooms.Contains(otherRoom))
+                        continue;
+
+                    connectedRooms.Add(otherRoom);
+                    connectedRooms.AddRange(otherRoom.GetConnectedRooms(otherRoom,door));
                 }
             }
         }
@@ -45,9 +54,11 @@ public class Room : MonoBehaviour, IRoom
                 if (otherRoom != room)
                 {
                     connectedRooms.AddRange(room.GetConnectedRooms(otherRoom, door));
+                    connectedRooms.Add(otherRoom);
                 }
             }
         }
+        
         return connectedRooms;
     }
 
@@ -69,13 +80,16 @@ public class Room : MonoBehaviour, IRoom
     public float GetOxygenVolume(Room room)
     {
         float sharedOxygen = currentOxygen;
-        foreach(Room otherRoom in GetConnectedRooms(room))
+        int size = 0;
+        List<Room> otherRooms = GetConnectedRooms(room);
+        size = otherRooms.Count + 1;
+        foreach (Room otherRoom in otherRooms)
         {
             if (otherRoom == room)
                 continue;
             sharedOxygen += otherRoom.currentOxygen;
         }
-        return sharedOxygen;
+        return sharedOxygen / size;
     }
     
 
@@ -96,7 +110,7 @@ public class Room : MonoBehaviour, IRoom
                 {
                     if (rooms == room)
                         continue;
-                    if (rooms.isSpace || rooms.isRoomBreached(rooms))
+                    if (rooms.isSpace) // check for damage here
                         return true;
 
                 }
@@ -120,12 +134,13 @@ public class Room : MonoBehaviour, IRoom
 
     public void MoveOxygen(Room room)
     {
+        if (room.isSpace)
+            return;
+
         List<Room> rooms = GetConnectedRooms(room);
-        int roomCount = rooms.Count;
-
+        int roomCount = rooms.Count + 1;
         float total = room.currentOxygen;
-        bool foundBreach = isRoomBreached(room);
-
+        bool foundBreach = false;
         Room breachedRoom = null;
         if (foundBreach)
         {
@@ -134,14 +149,14 @@ public class Room : MonoBehaviour, IRoom
         
         foreach(Room otherRoom in rooms)
         {
-            if (otherRoom == room)
-                continue;
             total += otherRoom.currentOxygen;
+     
 
             if (foundBreach == false)
             {
                 if (otherRoom.isRoomBreached(otherRoom))
                 {
+                    Debug.Log("Breach found: " + otherRoom.name);
                     foundBreach = true;
                     breachedRoom = otherRoom;
                 }
@@ -151,12 +166,16 @@ public class Room : MonoBehaviour, IRoom
         if (foundBreach)
         {
             // start oxygen evacuation measures . .
-            IEnumerator breach = HandleOxygenBreach(breachedRoom, rooms);
+            breach = HandleOxygenBreach(breachedRoom, rooms);
             StartCoroutine(breach);
-            Debug.LogError("der were breach");
         }
         else
         {
+            if (breach != null)
+            {
+                StopCoroutine(breach);
+                breach = null;
+            }
             // distribute -- 
             foreach (Room otherRoom in rooms)
             {
@@ -171,38 +190,74 @@ public class Room : MonoBehaviour, IRoom
     IEnumerator HandleOxygenBreach(Room targetRoom, List<Room> otherRooms)
     {
         float oxygenRemaining = GetOxygenVolume(this);
-        
-        while(oxygenRemaining >= 0)
+
+        Debug.Log("Oxygen: " + oxygenRemaining);
+        while(oxygenRemaining > 0)
         {  
             // seep oxygen
-            oxygenRemaining -= oxygenLossRate * Time.fixedDeltaTime;
+            oxygenRemaining -= Time.fixedDeltaTime;
             int otherRoomsCount = otherRooms.Count + 1;
             foreach(Room room in otherRooms)
             {
       
-                room.currentOxygen = oxygenRemaining / otherRooms.Count;
+                room.currentOxygen = oxygenRemaining;
 
                 if (room.currentOxygen < 0f)
                     room.currentOxygen = 0f;
             }
             // get nearby objects .. 
             // pull player, pull other objects, etc to the breach .. 
-            Collider[] col = Physics.OverlapSphere(targetRoom.transform.position, 20);
+            Collider[] col = Physics.OverlapSphere(targetRoom.transform.position, 20, layer);
+            
             foreach(Collider otherCol in col)
             {
                 Rigidbody rb = otherCol.GetComponent<Rigidbody>();
                 if (rb)
                 {
-                    rb.AddForce((rb.transform.position - targetRoom.transform.position) * oxygenRemaining, ForceMode.Impulse);
+                    Debug.Log("Breached room is: " + targetRoom.name);
+                    rb.AddForce((((targetRoom.transform.position  - rb.transform.position)) * rigidBodyEjectionForce) * Time.fixedDeltaTime, ForceMode.Impulse);
                 }
             }
             
-            this.currentOxygen = oxygenRemaining / otherRoomsCount;
+            this.currentOxygen = oxygenRemaining;
+            if (currentOxygen <= 0f)
+                currentOxygen = 0f;
 
 
             yield return new WaitForFixedUpdate();
         }
-
         yield return null;
+    }
+
+    private void OnDrawGizmos()
+    {
+        foreach(Door door in m_doors)
+        {
+
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(this.transform.position, door.transform.position);
+
+        }
+        if (this.isSpace)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(this.transform.position, Vector3.one / 4f);
+            return;
+        }
+        foreach (Room room in m_connectedRooms)
+        {
+            
+            if (!room.isSpace)
+                Gizmos.color = Color.green;
+            else
+                Gizmos.color = Color.red;
+            Gizmos.DrawLine(this.transform.position, room.transform.position);
+        }
+
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireCube(this.transform.position, Vector3.one / 4f);
+
+        UnityEditor.Handles.Label(this.transform.position, "Oxygen: " + currentOxygen);
+
     }
 }

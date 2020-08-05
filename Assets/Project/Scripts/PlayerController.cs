@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class PlayerController : MonoBehaviour
+[RequireComponent(typeof(Rigidbody))]
+public class PlayerController : MonoBehaviour, IDamageable
 {
+
+    [Header("Player Controls and Settings")]
     public bool _Seated = false;
     public float _InteractRange;
     public LayerMask _InteractLayer;
-
     public float camSens = 0.25f; //How sensitive it with mouse
     public float turnSpeed = 1.0f;
     
@@ -32,10 +34,32 @@ public class PlayerController : MonoBehaviour
     float directionAccel = 100f;
     [SerializeField]
     float pitchAccel = 80f;
+
+
+    [Header("Player Components")]
     [SerializeField]
     private AudioSource movementSound = null;
-
     private VignetteController vignetteController = null;
+    public Image _InteractMarker;
+    public Image _DefaultMarker;
+
+    [Header("Player Health")]
+    [SerializeField]
+    private float health = 100f;
+    private float maxHealth = 100f;
+    [SerializeField]
+    private float magnitudeDamageVelocity = 30f;
+    [SerializeField]
+    private float velocityDamageFloor = 2f;
+    [SerializeField]
+    private float velocityDamageMultiplier = 0.1f;
+
+
+#if UNITY_EDITOR
+    [Header("Debug")]
+    [SerializeField]
+    private float lastHitMagnitude = 0f;
+#endif
 
     private void Start()
     {
@@ -43,8 +67,7 @@ public class PlayerController : MonoBehaviour
         rb = this.GetComponent<Rigidbody>();
         vignetteController = GameObject.FindObjectOfType<VignetteController>();
     }
-    public Image _InteractMarker;
-    public Image _DefaultMarker;
+
 
     private void Update()
     {
@@ -130,6 +153,10 @@ public class PlayerController : MonoBehaviour
         }
 
 
+      
+    }
+    private void LateUpdate()
+    {
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, _InteractRange, _InteractLayer))
         {
@@ -137,7 +164,7 @@ public class PlayerController : MonoBehaviour
             {
                 _InteractMarker.enabled = true;
                 _DefaultMarker.enabled = false;
-                if (InteractionButton())
+                if (InteractionButtonDown())
                 {
                     hit.collider.GetComponent<IObjectInteract>().Interact(this);
                 }
@@ -150,7 +177,6 @@ public class PlayerController : MonoBehaviour
         }
         Debug.DrawRay(transform.position, transform.forward);
     }
-
     bool InteractionButton()
     {
         return Input.GetKey(KeyCode.E);
@@ -158,5 +184,33 @@ public class PlayerController : MonoBehaviour
     bool InteractionButtonDown()
     {
         return Input.GetKeyDown(KeyCode.E);
+    }
+
+    public void Damage(float damage)
+    {
+        float final = Mathf.Clamp(health - damage, 0, maxHealth);
+        // if (final == 0f) // handle death .. 
+        health = final;
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        float magnitude = (rb.velocity + rb.angularVelocity).magnitude;
+        Rigidbody otherRigidBody = collision.gameObject.GetComponent<Rigidbody>();
+        if (otherRigidBody)
+        {
+            magnitude += (otherRigidBody.velocity + otherRigidBody.angularVelocity).magnitude;
+        }
+
+        if (magnitude > magnitudeDamageVelocity)
+        {
+            // handle helmet break, etc.. 
+            this.Damage(velocityDamageFloor * (magnitude * velocityDamageMultiplier));
+            Debug.Log("Player took: " + (velocityDamageFloor * (magnitude * velocityDamageMultiplier)) + " Damage");
+            
+        }
+#if UNITY_EDITOR
+        lastHitMagnitude = magnitude;
+#endif
     }
 }
