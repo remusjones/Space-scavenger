@@ -44,6 +44,10 @@ public class Ship : MonoBehaviour
     public float maxTurnAngle = 90.0f;
     public float angularVelocityReduction = 100f;
 
+
+    public Vector3 movementSpeedPerAxis = new Vector3(0.1f, 0.1f, 1f);
+    public float maxBackwardsThrust = 0.1f;
+
     void Start()
     {
         rb = this.GetComponent<Rigidbody>();
@@ -94,7 +98,10 @@ public class Ship : MonoBehaviour
             pitch = Input.GetAxis("Pitch");
 
             rb.AddRelativeTorque((new Vector3(0, 0, -pitch) * pitchAccel) * Time.fixedDeltaTime, ForceMode.Acceleration);
-            rb.AddRelativeForce((new Vector3(movement.x, movement.y, movement.z) * directionAccel) * Time.fixedDeltaTime, ForceMode.Force);
+            if (movement.z < 0f)
+                movement.z = Mathf.Clamp(movement.z, -maxBackwardsThrust, 0f);
+
+            rb.AddRelativeForce((new Vector3(movement.x * movementSpeedPerAxis.x, movement.y * movementSpeedPerAxis.y, movement.z * movementSpeedPerAxis.z) * directionAccel) * Time.fixedDeltaTime, ForceMode.Force);
             rb.AddRelativeTorque(-(residualVelocity.y), (residualVelocity.x), 0f);
             //rb.angularVelocity = new Vector3(rb.angularVelocity.x + (residualVelocity.y / 10), rb.angularVelocity.y + (residualVelocity.x / 10), rb.angularVelocity.z);
 

@@ -189,6 +189,20 @@ MonoBehaviour:
       data1: 0
       data2: 0
   defaultFrameSettings: 0
+--- !u!64 &1280226833
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6026686826113047270}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2648840312197526232, guid: 38e55ed7c19798e4187b74b79cfa81c4, type: 3}
 --- !u!54 &1602466847
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -231,21 +245,9 @@ MonoBehaviour:
   moveSpeed: 2
   minTurnAngle: -90
   maxTurnAngle: 90
-  angularVelocityReduction: 100
---- !u!64 &1280226833
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6026686826113047270}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 2648840312197526232, guid: 38e55ed7c19798e4187b74b79cfa81c4, type: 3}
+  angularVelocityReduction: 300
+  movementSpeedPerAxis: {x: 0.3, y: 0.3, z: 1}
+  maxBackwardsThrust: 0.3
 --- !u!1001 &7479304122640038847
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -299,7 +301,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 38e55ed7c19798e4187b74b79cfa81c4, type: 3}
       propertyPath: m_Name
-      value: MCCV-2
+      value: MCCV-2 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3478197742616472757, guid: 38e55ed7c19798e4187b74b79cfa81c4, type: 3}
       propertyPath: m_LocalPosition.x
