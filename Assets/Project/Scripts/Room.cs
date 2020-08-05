@@ -12,7 +12,7 @@ public class Room : MonoBehaviour, IRoom
     public bool isSpace = false;
     [SerializeField]
     float currentOxygen = 1f;
-    float oxygenLossRate = 10f;
+    float oxygenLossRate = 1f;
     [SerializeField]
     float rigidBodyEjectionForce = 3f;
     int layer = (1 << 0);
