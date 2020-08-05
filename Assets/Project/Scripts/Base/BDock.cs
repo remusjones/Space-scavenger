@@ -16,6 +16,7 @@ public class BDock : MonoBehaviour, IDock
     IEnumerator dockingRoutine = null;
     [SerializeField]
     Rigidbody rb = null;
+
    
 
     public bool CanDock(Vector3 location, float checkDistance, Transform closestDock)
@@ -29,7 +30,7 @@ public class BDock : MonoBehaviour, IDock
         if (CanDock(rigidbody.transform.position, m_dockingDistance, target))
         {
             // get direction of push
-            Vector3 dir = target.position - rigidbody.transform.position;
+            Vector3 dir = target.position - this.transform.position;
             rigidbody.AddForce((dir * m_magnitizeValue) * Time.fixedDeltaTime, ForceMode.Acceleration);
         }
     }
@@ -39,7 +40,6 @@ public class BDock : MonoBehaviour, IDock
         while(m_dockTarget)
         {
             HandleMagnatise(rigidbody, otherObject);
-       
 
             // exits, and waits.. 
             yield return new WaitForFixedUpdate();
@@ -66,6 +66,7 @@ public class BDock : MonoBehaviour, IDock
         BDock tOtherDock = other.GetComponent<BDock>();
         if (tOtherDock != null)
         {
+            StopAllCoroutines();
             m_dockTarget = null;
         }
     }

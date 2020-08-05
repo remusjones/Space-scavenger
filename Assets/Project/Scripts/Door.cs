@@ -7,7 +7,6 @@ public class Door : MonoBehaviour, IDoor
 
     [SerializeField]
     bool m_isDoorOpen = false;
-    private bool lastVal = false;
     public List<Room> m_connectedRooms = new List<Room>();
 
     public List<Room> getConnectedRooms()
@@ -19,24 +18,25 @@ public class Door : MonoBehaviour, IDoor
     {
         return m_isDoorOpen;
     }
-
-
-    // Start is called before the first frame update
-    void Start()
+    public void TriggerDoor()
     {
-        
-    }
+        m_isDoorOpen = !m_isDoorOpen;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (m_isDoorOpen != lastVal)
+        if (!m_isDoorOpen)
+            return;
+        foreach (Room room in m_connectedRooms)
         {
-            foreach(Room room in m_connectedRooms)
-            {
-                room.MoveOxygen(room);
-            }
-            lastVal = m_isDoorOpen;
+            room.MoveOxygen(room);
         }
+    }
+    private void OnDrawGizmos()
+    {
+        if (m_isDoorOpen)
+            Gizmos.color = Color.green;
+        else
+            Gizmos.color = Color.blue;
+
+        Gizmos.DrawWireSphere(this.transform.position, 0.1f);
+
     }
 }

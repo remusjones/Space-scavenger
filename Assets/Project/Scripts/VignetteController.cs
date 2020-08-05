@@ -5,21 +5,6 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
 public class VignetteController : MonoBehaviour
 {
-    float defaultX = 0.5f;
-    float defaultY = 0.5f;
-    float defaultIntensity = 0.488f;
-    float defaultSmoothness = 0.188f;
-    float defaultRounded = 0.976f;
-
-
-    float maxX = 1f;
-    float maxY = 1f;
-
-    float minY = 0f;
-    float minX = 0f;
-
-    float maxIntensity = 1f;
-    float minIntensity = 0f;
 
     //[SerializeField]
     Vignette vignette;
