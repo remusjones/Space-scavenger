@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
     float directionAccel = 100f;
     [SerializeField]
     float pitchAccel = 80f;
+    [SerializeField]
+    private AudioSource movementSound = null;
 
     private VignetteController vignetteController = null;
 
@@ -97,8 +99,19 @@ public class PlayerController : MonoBehaviour
         if (rb)
         {
             Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("UpDown"), Input.GetAxis("Vertical"));
-
             float pitch = Input.GetAxis("Pitch");
+            if (movement.magnitude > 0f)
+            {
+                if (!movementSound.isPlaying)
+                    movementSound.Play();
+
+                Vector3 soundOffset = movement;
+                soundOffset.z += pitch;
+                movementSound.transform.localPosition = soundOffset * -1f;
+                movementSound.volume = movement.magnitude / 1000f;
+            }else
+                movementSound.Stop();
+
             rb.AddRelativeTorque((new Vector3(0, 0, -pitch) * pitchAccel) * Time.fixedDeltaTime, ForceMode.Acceleration);
             rb.AddRelativeForce((new Vector3(movement.x, movement.y, movement.z) * directionAccel) * Time.fixedDeltaTime, ForceMode.Force);
 
@@ -106,6 +119,12 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKey(KeyCode.LeftAlt))
             {
+                if (!movementSound.isPlaying)
+                {
+                    movementSound.transform.localPosition = Vector3.zero;
+                    movementSound.Play();
+
+                }
                 rb.velocity = rb.velocity - ((rb.velocity * 4) * Time.deltaTime);  
             }
         }
