@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f034cba68ab55e046ae1445a42f18c0e, type: 3}
   m_Name: IndirectLightingController
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   indirectDiffuseIntensity:
     m_OverrideState: 0
@@ -354,15 +354,15 @@ MonoBehaviour:
     m_Value: 0
   multiplier:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 2
     min: 0
   upperHemisphereLuxValue:
     m_OverrideState: 0
-    m_Value: 0.043484736
+    m_Value: 0.043484766
     min: 0
   upperHemisphereLuxColor:
     m_OverrideState: 0
-    m_Value: {x: 0.5, y: 0.43236795, z: 0.38077885}
+    m_Value: {x: 0.5, y: 0.4323679, z: 0.38077873}
   desiredLuxValue:
     m_OverrideState: 1
     m_Value: 1000000
