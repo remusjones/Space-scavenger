@@ -27,8 +27,8 @@ public class VignetteController : MonoBehaviour
     {
         if (vignette == null)
             return;
-        float x = accel.x;
-        float y = accel.y;
+        float x = accel.x / 3f;
+        float y = accel.y / 3f;
 
         float xOffset = 0f;
         float yOffset = 0f;

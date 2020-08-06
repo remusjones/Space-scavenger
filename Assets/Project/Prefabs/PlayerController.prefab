@@ -1079,7 +1079,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.36
+      value: 0.0001
       mode: 0
       spread: 0
       speed:
@@ -5894,7 +5894,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.24
+      value: 0.0001
       mode: 0
       spread: 0
       speed:
@@ -8969,7 +8969,7 @@ ParticleSystem:
   LightsModule:
     enabled: 1
     ratio: 1
-    light: {fileID: 26953646, guid: 9c93a31e7a76e81409ba7764a53ddff5, type: 3}
+    light: {fileID: 0}
     randomDistribution: 0
     color: 0
     range: 1
@@ -10132,7 +10132,7 @@ Light:
   m_BounceIntensity: 0
   m_ColorTemperature: 1000
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 6.704e-42, y: 1.01e-43, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 4.4746e-41, z: 0, w: -2.953125}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -10894,7 +10894,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: f5a2d7d2bfd0d6043a6a71afa8c8a1af, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
