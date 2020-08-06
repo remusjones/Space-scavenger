@@ -91,7 +91,7 @@ public class BTool : MonoBehaviour, ITool
         {
 
             Vector3[] vecs = new Vector3[2] { weaponNozzle.position, hit.point };
-            Vector3 backDir = (hit.point - weaponNozzle.position) * 0.1f;
+            Vector3 backDir = (hit.point - weaponNozzle.position) * 0.01f;
 
             particleToPlayOnCollisionRayHit.transform.position = hit.point - backDir;
             particleToPlayOnCollisionRayHit.transform.LookAt(playerRigidbody.transform, Vector3.up);
