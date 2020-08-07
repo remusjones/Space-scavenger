@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -23,6 +24,8 @@ public class WireObject : MonoBehaviour
     LayerMask layer = (1 << 0);
 
     public UnityEvent _OnSignalRecieved;
+
+    bool isPlacing = false;
 #if UNITY_EDITOR // debug only
     [SerializeField]
     private bool IgnoreInput = false;
@@ -46,30 +49,39 @@ public class WireObject : MonoBehaviour
             positions.Add(connection.transform.position);
         }
 
+        if (isPlacing)
+        {
+            positions.Add(drawnNode.transform.position);
+        }
+
         if (endNode != null)
-            positions.Add(endNode.transform.position);
+        positions.Add(endNode.transform.position);
+
+
+
         this.wireRenderer.positionCount = positions.Count;
         this.wireRenderer.SetPositions(positions.ToArray());
     }
 #if UNITY_EDITOR // debug only
     private void Update()
     {
+        RenderConnection();
         if (IgnoreInput)
             return;
-        if(Input.GetKey(KeyCode.P))
+        if (Input.GetKey(KeyCode.P))
         {
             DrawNode(GameObject.FindObjectOfType<Camera>().gameObject);
-
+            isPlacing = true;
         }
+        else
+            isPlacing = false;
         if (Input.GetKeyDown(KeyCode.I))
         {
             CreateNode(GameObject.FindObjectOfType<Camera>().gameObject);
-            RenderConnection();
         }
         if (Input.GetKeyDown(KeyCode.Delete))
         {
             TryDeleteNode(GameObject.FindObjectOfType<Camera>().gameObject);
-            RenderConnection();
         }
 
     }
@@ -147,20 +159,16 @@ public class WireObject : MonoBehaviour
         int index = FindWireNodeIndex(node);
         if (index < 0)
             return;
-        for(int i = index; i < wireNodes.Count;i++)
+        for(int i = (wireNodes.Count - 1); index < wireNodes.Count;i--)
         {
+            Debug.Log(i);
             Destroy(wireNodes[i].gameObject);
+            wireNodes.RemoveAt(i);
         }
-        if (index == 0)
-            wireNodes.Clear();
-        else if (index != (wireNodes.Count - 1))
-            wireNodes.RemoveRange(index, (wireNodes.Count - 1));
-        else
-            wireNodes.RemoveAt(wireNodes.Count - 1);
-
         endNode = null;
 
     }
+
 
     public void OnSignalRecieved()
     {
