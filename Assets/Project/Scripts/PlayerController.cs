@@ -68,6 +68,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField]
     private Camera playerCamera = null;
     private Canvas descriptionCanvas = null;
+    private RectTransform canvasTransform = null;
+    private RectTransform uiDescriptionTransform = null;
     
 
 #if UNITY_EDITOR
@@ -83,7 +85,12 @@ public class PlayerController : MonoBehaviour, IDamageable
         vignetteController = GameObject.FindObjectOfType<VignetteController>();
 
         if (textDescription != null)
+        {
             descriptionCanvas = textDescription.canvas;
+            canvasTransform = textDescription.canvas.GetComponent<RectTransform>();
+        }
+        if (uiDescription !=null)
+            uiDescription.GetComponent<RectTransform>();
     }
 
 
@@ -177,9 +184,6 @@ public class PlayerController : MonoBehaviour, IDamageable
     IEnumerator DisplayObject(IDescription desc, float maxAngle)
     {
 
-
-        RectTransform rectTransform = uiDescription.GetComponent<RectTransform>();
-
         EnableDisplay();
         bool angleExceeded = false;
         while (angleExceeded == false)
@@ -190,7 +194,7 @@ public class PlayerController : MonoBehaviour, IDamageable
             Vector3 angleAxis = lastDisplayedObject.transform.position - this.transform.position;
             float angle = Vector3.Angle(this.transform.forward, angleAxis);
 
-            MoveToWorldPoint(lastDisplayedObject.transform.position, rectTransform, (displayOffset ) + (new Vector2(Screen.width, Screen.height)/2));
+            MoveToWorldPoint(lastDisplayedObject.transform.position, uiDescriptionTransform, (displayOffset ) + (new Vector2(Screen.width, Screen.height)/2));
             textDescription.text = desc.GetPrintable();
 
             if (angle > maxAngle)
@@ -207,7 +211,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     public void MoveToWorldPoint(Vector3 objectTransformPosition, RectTransform rectTransform, Vector2 offset)
     {
-        Vector2 sizeDelta = textDescription.canvas.GetComponent<RectTransform>().sizeDelta;
+        Vector2 sizeDelta = canvasTransform.sizeDelta;
         Vector2 ViewportPosition = playerCamera.WorldToViewportPoint(objectTransformPosition);
         Vector2 proportionalPosition = new Vector2(ViewportPosition.x * sizeDelta.x, ViewportPosition.y * sizeDelta.y);
 
