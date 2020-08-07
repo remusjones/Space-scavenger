@@ -215,9 +215,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     public void MoveToWorldPoint(Vector3 objectTransformPosition, RectTransform rectTransform, Vector2 offset)
     {
         Vector2 sizeDelta = canvasTransform.sizeDelta;
-        //Vector2 test = ;
         Vector2 ViewportPosition = playerCamera.WorldToViewportPoint(objectTransformPosition);
-        //Vector2 proportionalPosition = new Vector2(ViewportPosition.x * sizeDelta.x, ViewportPosition.y * sizeDelta.y) * canvasTransform.GetComponent<CanvasScaler>().scaleFactor;
         Vector2 proportionalPosition = new Vector2(ViewportPosition.x * sizeDelta.x, ViewportPosition.y * sizeDelta.y);
         rectTransform.localPosition = (proportionalPosition - (canvasTransform.sizeDelta/2)) - offset;
     }
