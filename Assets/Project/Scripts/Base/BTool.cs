@@ -9,7 +9,7 @@ public class BTool : MonoBehaviour, ITool
     [SerializeField]
     protected Transform weaponNozzle = null;
     [SerializeField]
-    private LineRenderer weaponLineRenderer = null;
+    protected LineRenderer weaponLineRenderer = null;
     [SerializeField]
     protected ParticleSystem particleToPlayOnCollisionRayHit = null;
 
