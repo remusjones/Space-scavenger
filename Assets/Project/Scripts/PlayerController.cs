@@ -8,8 +8,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     [Header("Player Controls and Settings")]
     public bool _Seated = false;
-    public float _InteractRange;
-    public LayerMask _InteractLayer;
+
     public float camSens = 0.25f; //How sensitive it with mouse
     public float turnSpeed = 1.0f;
     
@@ -54,6 +53,22 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField]
     private float velocityDamageMultiplier = 0.1f;
 
+    [Header("UI Settings")]
+    public float _InteractRange;
+    public LayerMask _InteractLayer;
+    public float maxDisplayAngle = 20f;
+    private GameObject lastDisplayedObject = null;
+    private IEnumerator updateObjectDisplay = null;
+    public Vector2 displayOffset = Vector2.zero;
+    
+    [SerializeField]
+    private CanvasRenderer uiDescription = null;
+    [SerializeField]
+    private TMPro.TMP_Text textDescription = null;
+    [SerializeField]
+    private Camera playerCamera = null;
+    private Canvas descriptionCanvas = null;
+    
 
 #if UNITY_EDITOR
     [Header("Debug")]
@@ -66,6 +81,9 @@ public class PlayerController : MonoBehaviour, IDamageable
         _StartDirectionAccelleration = directionAccel;
         rb = this.GetComponent<Rigidbody>();
         vignetteController = GameObject.FindObjectOfType<VignetteController>();
+
+        if (textDescription != null)
+            descriptionCanvas = textDescription.canvas;
     }
 
 
@@ -155,18 +173,87 @@ public class PlayerController : MonoBehaviour, IDamageable
 
       
     }
+
+    IEnumerator DisplayObject(IDescription desc, float maxAngle)
+    {
+
+
+        RectTransform rectTransform = uiDescription.GetComponent<RectTransform>();
+
+        EnableDisplay();
+        bool angleExceeded = false;
+        while (angleExceeded == false)
+        {
+            if (!textDescription || !uiDescription || !playerCamera || !lastDisplayedObject)
+                yield return null;
+
+            Vector3 angleAxis = lastDisplayedObject.transform.position - this.transform.position;
+            float angle = Vector3.Angle(this.transform.forward, angleAxis);
+
+            MoveToWorldPoint(lastDisplayedObject.transform.position, rectTransform, (displayOffset ) + (new Vector2(Screen.width, Screen.height)/2));
+            textDescription.text = desc.GetPrintable();
+
+            if (angle > maxAngle)
+            {
+                angleExceeded = true;
+
+                ResetDisplay();
+                lastDisplayedObject = null;
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    public void MoveToWorldPoint(Vector3 objectTransformPosition, RectTransform rectTransform, Vector2 offset)
+    {
+        Vector2 sizeDelta = textDescription.canvas.GetComponent<RectTransform>().sizeDelta;
+        Vector2 ViewportPosition = playerCamera.WorldToViewportPoint(objectTransformPosition);
+        Vector2 proportionalPosition = new Vector2(ViewportPosition.x * sizeDelta.x, ViewportPosition.y * sizeDelta.y);
+
+        rectTransform.localPosition = proportionalPosition - offset;
+    }
+    private void ResetDisplay()
+    {
+        // animations and such for ui here
+        uiDescription.gameObject.SetActive(false);
+    }
+    private void EnableDisplay()
+    {
+        // animations and such for ui here
+        uiDescription.gameObject.SetActive(true);
+    }
     private void LateUpdate()
     {
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, _InteractRange, _InteractLayer))
         {
-            if (hit.collider.GetComponent<IObjectInteract>() != null)
+            IObjectInteract objectInteract = hit.collider.GetComponent<IObjectInteract>();
+            IDescription objectDescription = hit.collider.GetComponent<IDescription>();
+            if (objectInteract != null)
             {
                 _InteractMarker.enabled = true;
                 _DefaultMarker.enabled = false;
                 if (InteractionButtonDown())
                 {
-                    hit.collider.GetComponent<IObjectInteract>().Interact(this);
+                    objectInteract.Interact(this);
+                }
+                if (objectDescription != null)
+                {
+                    // update current display
+                    if (lastDisplayedObject != hit.collider.gameObject)
+                    {
+                    
+                        if (updateObjectDisplay != null && lastDisplayedObject != hit.collider.gameObject)
+                        {
+                            StopCoroutine(updateObjectDisplay);
+                            updateObjectDisplay = null;
+                            ResetDisplay();
+                        }
+
+                        lastDisplayedObject = hit.collider.gameObject;
+                        StartCoroutine(DisplayObject(objectDescription, maxDisplayAngle));
+                    }
                 }
             }
             else
@@ -174,6 +261,9 @@ public class PlayerController : MonoBehaviour, IDamageable
                 _InteractMarker.enabled = false;
                 _DefaultMarker.enabled = true;
             }
+
+
+
         }
         Debug.DrawRay(transform.position, transform.forward);
     }
