@@ -7,7 +7,6 @@ using UnityEngine.Events;
 [RequireComponent(typeof(LineRenderer))]
 public class WireObject : MonoBehaviour
 {
-    [SerializeField]
     private List<WireNode> wireNodes = new List<WireNode>();
     [SerializeField]
     private LineRenderer wireRenderer = null;
@@ -86,6 +85,10 @@ public class WireObject : MonoBehaviour
 
     }
 #endif
+    /// <summary>
+    /// Draws a node from the player camera, forward. 
+    /// </summary>
+    /// <param name="playerCamera">Player Camera reference</param>
     private void DrawNode(GameObject playerCamera)
     {
       
@@ -105,6 +108,10 @@ public class WireObject : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Raycasts infront of the player camera, and tries to delete the node.
+    /// </summary>
+    /// <param name="playerCamera"></param>
     private void TryDeleteNode(GameObject playerCamera)
     {
         RaycastHit hit;
@@ -118,6 +125,10 @@ public class WireObject : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Creates a node, and adds it to the array, and connects it.
+    /// </summary>
+    /// <param name="playerCamera"></param>
     private void CreateNode(GameObject playerCamera)
     {
         // creates game object at target (and parents) unless the object clicked is a WireObject..
@@ -142,7 +153,11 @@ public class WireObject : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// Attempts to find the node in the array, and returns the index if found, or -1 if not found.
+    /// </summary>
+    /// <param name="node"></param>
+    /// <returns></returns>
     private int FindWireNodeIndex(WireNode node)
     {
         int i = 0;
@@ -154,6 +169,11 @@ public class WireObject : MonoBehaviour
         }
         return -1;
     }
+
+    /// <summary>
+    /// Removes the node/deletes the object if it exists in the array, and will then resize the array.
+    /// </summary>
+    /// <param name="node"></param>
     private void RemoveWireNode(WireNode node)
     {
         int index = FindWireNodeIndex(node);
@@ -161,7 +181,6 @@ public class WireObject : MonoBehaviour
             return;
         for(int i = (wireNodes.Count - 1); index < wireNodes.Count;i--)
         {
-            Debug.Log(i);
             Destroy(wireNodes[i].gameObject);
             wireNodes.RemoveAt(i);
         }
@@ -169,7 +188,22 @@ public class WireObject : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Moves the selected node to the provided position
+    /// </summary>
+    /// <param name="node"></param>
+    /// <param name="nodePos"></param>
+    public void MoveNode(WireNode node, Vector3 nodePos)
+    {
+        if (node)
+        {
+            node.transform.position = nodePos;
+        }
+    }
 
+    /// <summary>
+    /// Used to invoke WireObjects delegates assigned in the inspector, from both this object, and the reciever.
+    /// </summary>
     public void OnSignalRecieved()
     {
         _OnSignalRecieved?.Invoke();
