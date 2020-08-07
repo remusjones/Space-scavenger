@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour, IDamageable
             canvasTransform = textDescription.canvas.GetComponent<RectTransform>();
         }
         if (uiDescription !=null)
-            uiDescription.GetComponent<RectTransform>();
+            uiDescriptionTransform = uiDescription.GetComponent<RectTransform>();
     }
 
 
