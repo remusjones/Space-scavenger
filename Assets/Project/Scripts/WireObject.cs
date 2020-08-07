@@ -145,7 +145,6 @@ public class WireObject : MonoBehaviour
     private void RemoveWireNode(WireNode node)
     {
         int index = FindWireNodeIndex(node);
-        Debug.Log("Index found: " + index);
         if (index < 0)
             return;
         for(int i = index; i < wireNodes.Count;i++)
@@ -169,7 +168,6 @@ public class WireObject : MonoBehaviour
         if (endNode)
         {
             endNode._OnSignalRecieved?.Invoke();
-            Debug.Log("triggering other device -- " + endNode.ToString());
         }
     }
 }
