@@ -77,7 +77,6 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField]
     private float lastHitMagnitude = 0f;
 #endif
-
     private void Start()
     {
         _StartDirectionAccelleration = directionAccel;
@@ -92,8 +91,6 @@ public class PlayerController : MonoBehaviour, IDamageable
         if (uiDescription !=null)
             uiDescriptionTransform = uiDescription.GetComponent<RectTransform>();
     }
-
-
     private void Update()
     {
         if (_Seated)
@@ -194,7 +191,7 @@ public class PlayerController : MonoBehaviour, IDamageable
             Vector3 angleAxis = lastDisplayedObject.transform.position - this.transform.position;
             float angle = Vector3.Angle(this.transform.forward, angleAxis);
 
-            MoveToWorldPoint(lastDisplayedObject.transform.position, uiDescriptionTransform, (displayOffset ) + (new Vector2(Screen.width, Screen.height)/2));
+            MoveToWorldPoint(lastDisplayedObject.transform.position, uiDescriptionTransform, (displayOffset ));
             textDescription.text = desc.GetPrintable();
 
             if (angle > maxAngle)
@@ -209,13 +206,20 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
     }
 
+    /// <summary>
+    /// Used to get a world position, and translate it to canvas space. 
+    /// </summary>
+    /// <param name="objectTransformPosition">World position</param>
+    /// <param name="rectTransform">The UI element to move</param>
+    /// <param name="offset">Offset (be sure to do your </param>
     public void MoveToWorldPoint(Vector3 objectTransformPosition, RectTransform rectTransform, Vector2 offset)
     {
         Vector2 sizeDelta = canvasTransform.sizeDelta;
+        //Vector2 test = ;
         Vector2 ViewportPosition = playerCamera.WorldToViewportPoint(objectTransformPosition);
+        //Vector2 proportionalPosition = new Vector2(ViewportPosition.x * sizeDelta.x, ViewportPosition.y * sizeDelta.y) * canvasTransform.GetComponent<CanvasScaler>().scaleFactor;
         Vector2 proportionalPosition = new Vector2(ViewportPosition.x * sizeDelta.x, ViewportPosition.y * sizeDelta.y);
-
-        rectTransform.localPosition = proportionalPosition - offset;
+        rectTransform.localPosition = (proportionalPosition - (canvasTransform.sizeDelta/2)) - offset;
     }
     private void ResetDisplay()
     {
