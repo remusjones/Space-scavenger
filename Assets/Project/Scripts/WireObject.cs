@@ -20,7 +20,7 @@ public class WireObject : MonoBehaviour
     private GameObject drawnNode = null;
 
     [SerializeField]
-    LayerMask layer = (0 << 1);
+    LayerMask layer = (1 << 0);
 
     public UnityEvent _OnSignalRecieved;
 #if UNITY_EDITOR // debug only
@@ -158,7 +158,6 @@ public class WireObject : MonoBehaviour
             wireNodes.RemoveRange(index, (wireNodes.Count - 1));
         else
             wireNodes.RemoveAt(wireNodes.Count - 1);
-
 
         endNode = null;
 
