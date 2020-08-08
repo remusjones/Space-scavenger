@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 948446040186482214}
   - component: {fileID: 4217151779818692995}
   - component: {fileID: 2117433422605391177}
+  - component: {fileID: -2722557676085457092}
   m_Layer: 0
   m_Name: LongHallway
   m_TagString: Untagged
@@ -83,6 +84,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &-2722557676085457092
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460033511592604828}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -345361888279822932, guid: 56dbe2962358b9b478a3c3b622ba48c9, type: 3}
 --- !u!1 &766517775356027210
 GameObject:
   m_ObjectHideFlags: 0

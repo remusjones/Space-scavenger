@@ -419,6 +419,7 @@ GameObject:
   - component: {fileID: 8562184275483832439}
   - component: {fileID: 4718970516401635282}
   - component: {fileID: 7393171054945487640}
+  - component: {fileID: 1100735222165246572}
   m_Layer: 0
   m_Name: StorageHall
   m_TagString: Untagged
@@ -491,3 +492,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1100735222165246572
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9050315054537665229}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2520192741919839921, guid: 9e207c1534234d84eb920c6154c1ff6e, type: 3}

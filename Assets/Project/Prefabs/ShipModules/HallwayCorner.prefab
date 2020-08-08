@@ -216,6 +216,7 @@ GameObject:
   - component: {fileID: 6301092247662313232}
   - component: {fileID: 8112404916681690074}
   - component: {fileID: 7445744221288614051}
+  - component: {fileID: -3995091641572884878}
   m_Layer: 0
   m_Name: HallwayCorner
   m_TagString: Untagged
@@ -288,6 +289,20 @@ MeshRenderer:
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!64 &7445744221288614051
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7752367566648928783}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -446648176690607450, guid: a418dcfc776695a4b830d31f600a76b6, type: 3}
+--- !u!64 &-3995091641572884878
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

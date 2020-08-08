@@ -215,6 +215,7 @@ GameObject:
   - component: {fileID: 1546045677793454914}
   - component: {fileID: 2511728550108144871}
   - component: {fileID: 378166608733392941}
+  - component: {fileID: 1659397654497302003}
   m_Layer: 0
   m_Name: TIntersection
   m_TagString: Untagged
@@ -286,3 +287,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1659397654497302003
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2179593746349847032}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8574018570384156330, guid: b55b86cfc0d95d14597da4dcd8b7539d, type: 3}

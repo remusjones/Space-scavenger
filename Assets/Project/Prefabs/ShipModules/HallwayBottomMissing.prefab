@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1649655560115545655}
   - component: {fileID: 2399041362551925138}
   - component: {fileID: 481863313549991256}
+  - component: {fileID: 5555366579130245555}
   m_Layer: 0
   m_Name: HallwayBottomMissing
   m_TagString: Untagged
@@ -81,3 +82,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5555366579130245555
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138946289258151053}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4126357164971846548, guid: c3072973213aa4f4f9ccf5807b833f1f, type: 3}
