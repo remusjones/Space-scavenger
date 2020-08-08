@@ -53,7 +53,7 @@ public class GravityGun : BTool
 
         if (holdItem)
         {
-            Shoot(0f, 0f, 0f);
+            Shoot();
         }
     }
     public override void Shoot()
