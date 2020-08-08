@@ -8,10 +8,6 @@ public class BTool : MonoBehaviour, ITool
     [Header("Tool References")]
     [SerializeField]
     protected Transform weaponNozzle = null;
-    [SerializeField]
-    protected LineRenderer weaponLineRenderer = null;
-    [SerializeField]
-    protected ParticleSystem particleToPlayOnCollisionRayHit = null;
 
     [SerializeField]
     protected Rigidbody playerRigidbody = null;
@@ -67,6 +63,12 @@ public class BTool : MonoBehaviour, ITool
         }
     }
 
+    public bool CanShoot(float ammoCost)
+    {
+        if (currentMagazineAmount <= 0 || (currentMagazineAmount - ammoCost) < 0f)
+            return false;
+        return true;
+    }
     /// <summary>
     /// 
     /// </summary>
@@ -75,96 +77,21 @@ public class BTool : MonoBehaviour, ITool
     /// <param name="ammoMultiplier">Leave as 0.0f if you don't want to use it</param>
     public virtual void Shoot(float damage, float ammoCost, float ammoMultiplier = 0.0f)
     {
-        if (currentMagazineAmount <= 0 || (currentMagazineAmount - ammoCost ) < 0f)
-            return;
-
         if (ammoMultiplier == 0.0f)
         {
             currentMagazineAmount -= ammoCost;
-        }else
+        }
+        else
         {
             currentMagazineAmount -= (ammoCost * ammoMultiplier);
         }
-        // do projectile/raycast here
-        RaycastHit hit;
-        if (Physics.Raycast(weaponNozzle.position, weaponNozzle.forward, out hit, range))
-        {
-
-            Vector3[] vecs = new Vector3[2] { weaponNozzle.position, hit.point };
-            Vector3 backDir = (hit.point - weaponNozzle.position) * 0.01f;
-
-            particleToPlayOnCollisionRayHit.transform.position = hit.point - backDir;
-            particleToPlayOnCollisionRayHit.transform.LookAt(playerRigidbody.transform, Vector3.up);
-
-
-            if (!particleToPlayOnCollisionRayHit.isPlaying)
-            {
-                particleToPlayOnCollisionRayHit.Play(true);
-            }
-            if (weaponLineRenderer)
-            {
-                weaponLineRenderer.SetPositions(vecs);
-            }
-
-            IDamageable damageable = hit.transform.GetComponent<IDamageable>();
-            if (damageable != null)
-            {
-                damageable.Damage(damage);
-            }
-        }else
-        {
-            if (particleToPlayOnCollisionRayHit.isPlaying)
-            {
-                particleToPlayOnCollisionRayHit.Stop(true);
-                foreach (Light light in particleToPlayOnCollisionRayHit.GetComponentsInChildren<Light>())
-                {
-                    light.enabled = false;
-                }
-            }
-            Vector3[] vecs = new Vector3[2] { weaponNozzle.position, weaponNozzle.position + (weaponNozzle.forward * range) };
-            if (weaponLineRenderer)
-            {
-                weaponLineRenderer.SetPositions(vecs);
-            }
-        }
-
-
+    }
+    public virtual void Shoot()
+    { 
     }
 
     protected virtual void Update()
     {
-        if (Input.GetMouseButton(0))
-        {
-            weaponLineRenderer.enabled = true;
-            Shoot(damage, 1f, 1f * Time.deltaTime);
-            ApplyKnockback(playerRigidbody, playerKnockback);
-        }else
-        {
-            weaponLineRenderer.enabled = false;
-            if (particleToPlayOnCollisionRayHit.isPlaying)
-            {
-                particleToPlayOnCollisionRayHit.Stop(true);
-               
-
-                foreach(Light light in particleToPlayOnCollisionRayHit.GetComponentsInChildren<Light>())
-                {
-                    light.enabled = false;
-                }
-            }
-        }
-        //if (Input.GetMouseButtonDown(1))
-        //{
-        //    weaponLineRenderer.enabled = true;
-        //    Shoot(damage, 5f);
-        //    ApplyKnockback(playerRigidbody, playerKnockback);
-        //}
-   
-
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Reload();
-        }
     }
 
     public void ApplyKnockback(Rigidbody player, float force)
