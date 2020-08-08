@@ -60,11 +60,11 @@ public class WeldTool : BTool
         if (!CanShoot(ammoCost))
             return;
 
-        base.Shoot();
+        base.Shoot(damage,ammoCost,ammoMultiplier);
 
         // do projectile/raycast here
         RaycastHit hit;
-        if (Physics.Raycast(weaponNozzle.position, weaponNozzle.forward, out hit, range))
+        if (base.RaycastFromCamera(out hit))
         {
 
             Vector3[] vecs = new Vector3[2] { weaponNozzle.position, hit.point };

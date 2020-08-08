@@ -61,7 +61,7 @@ public class GravityGun : BTool
         base.Shoot();
         //base.Shoot(damage, ammoCost, ammoMultiplier);
         RaycastHit hit;
-        if (Physics.Raycast(weaponNozzle.position, weaponNozzle.forward, out hit, range))
+        if (base.RaycastFromCamera(out hit))
         {
             IGrabbable grabbable = hit.collider.GetComponent<IGrabbable>();
             if (grabbable == null)

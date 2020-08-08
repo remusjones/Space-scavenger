@@ -12,6 +12,9 @@ public class BTool : MonoBehaviour, ITool
     [SerializeField]
     protected Rigidbody playerRigidbody = null;
 
+    [SerializeField]
+    protected Camera playerCamera = null;
+
     [Header("Tool Values")]
     [SerializeField]
     protected float damage;
@@ -25,12 +28,15 @@ public class BTool : MonoBehaviour, ITool
     protected float currentMagazineAmount;
     [SerializeField]
     protected float storedAmmo;
+    [SerializeField]
+    protected LayerMask layermask;
 
     [Header("Cooldown Values")]
     [SerializeField]
     protected float shootCooldown;
     [SerializeField]
     protected float reloadCooldown;
+
 
 
     public virtual void AddAmmo(float addAmount)
@@ -63,6 +69,20 @@ public class BTool : MonoBehaviour, ITool
         }
     }
 
+    public virtual bool RaycastFromCamera(out RaycastHit raycastHit)
+    {
+        RaycastHit hit;
+        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+        Debug.DrawRay(ray.origin, ray.direction * range);
+        if (Physics.Raycast(ray, out hit, range, layermask))
+        {
+            Debug.Log(hit.collider.gameObject.name);
+            raycastHit = hit;
+            return true;
+        }
+        raycastHit = hit;
+        return false;
+    }
     public bool CanShoot(float ammoCost)
     {
         if (currentMagazineAmount <= 0 || (currentMagazineAmount - ammoCost) < 0f)
