@@ -99,7 +99,7 @@ public class WeldTool : BTool
                     light.enabled = false;
                 }
             }
-            Vector3[] vecs = new Vector3[2] { weaponNozzle.position, weaponNozzle.position + (weaponNozzle.forward * range) };
+            Vector3[] vecs = new Vector3[2] { weaponNozzle.position, playerCamera.transform.position + (playerCamera.transform.forward * range) };
             if (weaponLineRenderer)
             {
                 weaponLineRenderer.SetPositions(vecs);
