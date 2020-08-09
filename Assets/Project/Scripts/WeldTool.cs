@@ -10,6 +10,8 @@ public class WeldTool : BTool
     [SerializeField]
     protected ParticleSystem particleToPlayOnCollisionRayHit = null;
 
+
+    
     // Update is called once per frame
     protected override void Update()
     {
@@ -45,6 +47,7 @@ public class WeldTool : BTool
         if (!CanShoot(ammoCost))
             return;
 
+       
         ApplyKnockback(playerRigidbody, playerKnockback);
         base.Shoot(damage,ammoCost,ammoMultiplier);
 
@@ -91,7 +94,5 @@ public class WeldTool : BTool
                 weaponLineRenderer.SetPositions(vecs);
             }
         }
-
-
     }
 }
