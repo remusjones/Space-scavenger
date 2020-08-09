@@ -23,7 +23,6 @@ public class WeldTool : BTool
         {
             weaponLineRenderer.enabled = true;
             Shoot(damage, 1f, 1f * Time.deltaTime);
-            ApplyKnockback(playerRigidbody, playerKnockback);
         }
         else
         {
@@ -60,6 +59,7 @@ public class WeldTool : BTool
         if (!CanShoot(ammoCost))
             return;
 
+        ApplyKnockback(playerRigidbody, playerKnockback);
         base.Shoot(damage,ammoCost,ammoMultiplier);
 
         // do projectile/raycast here
