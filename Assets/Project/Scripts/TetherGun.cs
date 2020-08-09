@@ -31,6 +31,7 @@ public class TetherGun : BTool
     // Update is called once per frame
     protected override void Update()
     {
+        AngleToolToCamera();
         if (Input.GetMouseButton(0))
         {
 

@@ -10,12 +10,6 @@ public class WeldTool : BTool
     [SerializeField]
     protected ParticleSystem particleToPlayOnCollisionRayHit = null;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     protected override void Update()
     {
@@ -45,11 +39,7 @@ public class WeldTool : BTool
         }
     }
 
-    public override void AngleToolToCamera()
-    {
-        Vector3 pos = playerCamera.transform.position + (playerCamera.transform.forward * range);
-        this.weaponNozzle.parent.LookAt(pos, playerRigidbody.transform.up);
-    }
+
     public override void Shoot(float damage, float ammoCost, float ammoMultiplier = 0.0f)
     {
         if (!CanShoot(ammoCost))

@@ -69,7 +69,11 @@ public class BTool : MonoBehaviour, ITool
         }
     }
 
-    public virtual void AngleToolToCamera() { }
+    public virtual void AngleToolToCamera() 
+    {
+        Vector3 pos = playerCamera.transform.position + (playerCamera.transform.forward * range);
+        this.weaponNozzle.parent.LookAt(pos, playerRigidbody.transform.up);
+    }
     public virtual bool RaycastFromCamera(out RaycastHit raycastHit)
     {
         RaycastHit hit;

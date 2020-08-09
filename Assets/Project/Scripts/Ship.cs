@@ -84,10 +84,6 @@ public class Ship : MonoBehaviour
         float y = ((mX + residualVelocity.x) * turnSpeed);
         rotX = ((mY + residualVelocity.y) * turnSpeed);
         rotX = Mathf.Clamp(rotX, minTurnAngle, maxTurnAngle);
-       // this.transform.Rotate(Vector3.up, y, Space.Self);
-       // // //rotate around local x;
-       // this.transform.Rotate(Vector3.right, -rotX, Space.Self);
-
 
         lastMouse = currMouse;
         // input
@@ -103,7 +99,6 @@ public class Ship : MonoBehaviour
 
             rb.AddRelativeForce((new Vector3(movement.x * movementSpeedPerAxis.x, movement.y * movementSpeedPerAxis.y, movement.z * movementSpeedPerAxis.z) * directionAccel) * Time.fixedDeltaTime, ForceMode.Force);
             rb.AddRelativeTorque(-(residualVelocity.y), (residualVelocity.x), 0f);
-            //rb.angularVelocity = new Vector3(rb.angularVelocity.x + (residualVelocity.y / 10), rb.angularVelocity.y + (residualVelocity.x / 10), rb.angularVelocity.z);
 
             if (Input.GetKey(KeyCode.LeftAlt))
             {
