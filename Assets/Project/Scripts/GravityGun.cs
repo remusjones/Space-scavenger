@@ -35,14 +35,9 @@ public class GravityGun : BTool
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("test");
             OnInputToggle();
 
         }
-        if (grabbedRigidbody != null)
-            weaponLineRenderer.enabled = true;
-        else
-            weaponLineRenderer.enabled = false;
 
         if (Input.GetMouseButtonDown(1))
         {
@@ -57,56 +52,21 @@ public class GravityGun : BTool
 
         if (holdItem)
         {
-            Shoot(0f, 0f, 0f);
+            Shoot();
         }
     }
-    public override void Shoot(float damage, float ammoCost, float ammoMultiplier = 0)
+    public override void Shoot()
     {
+        base.Shoot();
         //base.Shoot(damage, ammoCost, ammoMultiplier);
         RaycastHit hit;
-        if (Physics.Raycast(weaponNozzle.position, weaponNozzle.forward, out hit, range))
+        if (base.RaycastFromCamera(out hit))
         {
             IGrabbable grabbable = hit.collider.GetComponent<IGrabbable>();
             if (grabbable == null)
                 return;
 
             grabbedRigidbody = grabbable.GetRigidbody();
-            //Rigidbody otherRigidbody = 
-
-            Vector3[] vecs = new Vector3[2] { weaponNozzle.position, hit.point };
-            if (weaponLineRenderer)
-            {
-                weaponLineRenderer.SetPositions(vecs);
-            }
-            particleToPlayOnCollisionRayHit.transform.position = hit.transform.position;
-
-
-           // if (!particleToPlayOnCollisionRayHit.isPlaying)
-           // {
-           //     particleToPlayOnCollisionRayHit.Play(true);
-           // }
-            if (weaponLineRenderer)
-            {
-                weaponLineRenderer.SetPositions(vecs);
-            }
-        }
-        else
-        {
-            weaponLineRenderer.enabled = true;
-            grabbedRigidbody = null;
-            if (particleToPlayOnCollisionRayHit.isPlaying)
-            {
-                particleToPlayOnCollisionRayHit.Stop(true);
-                foreach (Light light in particleToPlayOnCollisionRayHit.GetComponentsInChildren<Light>())
-                {
-                    light.enabled = false;
-                }
-            }
-            Vector3[] vecs = new Vector3[2] { weaponNozzle.position, weaponNozzle.position + (weaponNozzle.forward * range) };
-            if (weaponLineRenderer)
-            {
-                weaponLineRenderer.SetPositions(vecs);
-            }
         }
     }
 
@@ -114,8 +74,6 @@ public class GravityGun : BTool
     {
         if (holdItem && grabbedRigidbody)
         {
-            weaponLineRenderer.SetPosition(0, weaponNozzle.position);
-            weaponLineRenderer.SetPosition(1, grabbedRigidbody.position);
             if (Vector3.Distance(grabbedRigidbody.position, anchorPoint.position) > 1f)
             {
                 grabbedRigidbody.AddForce(((anchorPoint.position - grabbedRigidbody.transform.position) * Time.fixedDeltaTime) * grabModifier, ForceMode.Impulse);
