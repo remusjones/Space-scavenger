@@ -7,45 +7,52 @@ using UnityEngine;
 public class Ship : MonoBehaviour
 {
 
+    [Tooltip("Used for testing (will be deprecated) if the user is controlling the ship")]
     public bool isPlayerDriving = false;
 
-    // Start is called before the first frame update
     Vector2 lastMouse = new Vector2();
     Rigidbody rb = null;
-
-    [SerializeField]
-    Vector3 input;
-    [SerializeField]
-    Vector2 currMouse;
-    [SerializeField]
-    Vector2 mouseInput;
     private Vector2 residualVelocity = Vector2.zero;
 
     private float rotX;
 
+    [Tooltip("How long the mouse movement has to be, before the residual velocity is modified | (currMouse - lastMouse).magnitude >= residualMagnitudeLimit")]
     [SerializeField]
     float residualMagnitudeLimit = 0.1f;
+
+    [Tooltip("How much the mouse movement magnitude influences the ships residual velocity, when the user moves the mouse | residualVelocity = (currMouse + lastMouse) / residualDivider;")]
     [SerializeField]
     float residualDivider = 50f;
+
+    [Tooltip("Used for quickness of mouse movement deaccel | residualVelocity -= ((residualVelocity * residualDeductionMultiplier) * Time.deltaTime)")]
     [SerializeField]
     float residualDeductionMultiplier = 5f;
+
+    [Tooltip("Overall Speed for WASD movement keys.")]
     [SerializeField]
     float directionAccel = 100f;
+
+    [Tooltip("Rigidbody Pitch is multiplied by this value | (new Vector3(0, 0, -pitch) * pitchAccel)")]
     [SerializeField]
     float pitchAccel = 100f;
 
+    [Tooltip("When the user is pressing the Slow Key the speed is reduced, and multiplied by this value | rb.velocity - ((rb.velocity * deaccelSpeed) * Time.deltaTime)")]
     [SerializeField]
     float deaccelSpeed = 1f;
 
-
+    [Tooltip("Turn Speed Multiplier for mouse axis | (mX + residualVelocity.x) * turnSpeed)")]
     public float turnSpeed = 1.0f;
-    public float moveSpeed = 2.0f;
+    [Tooltip("Min clamp angle for X mouse axis.")]
     public float minTurnAngle = -90.0f;
+    [Tooltip("Max clamp angle for X mouse axis.")]
     public float maxTurnAngle = 90.0f;
+    [Tooltip("The dividend per frame to slow down angular velocity | (rb.angularVelocity -= rb.angularVelocity / angularVelocityReduction)")]
     public float angularVelocityReduction = 100f;
 
 
+    [Tooltip("Used for accelerting specific vectors (except backwards) | new Vector3(movement.x * movementSpeedPerAxis.x, movement.y * movementSpeedPerAxis.y, movement.z * movementSpeedPerAxis.z)")]
     public Vector3 movementSpeedPerAxis = new Vector3(0.1f, 0.1f, 1f);
+    [Tooltip("Used as a speed multiplier when moving backwards | movement.z = Mathf.Clamp(movement.z, -maxBackwardsThrust, 0f)")]
     public float maxBackwardsThrust = 0.1f;
 
     void Start()
@@ -91,7 +98,6 @@ public class Ship : MonoBehaviour
         if (rb)
         {
             Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("UpDown"), Input.GetAxis("Vertical"));
-            pitch = Input.GetAxis("Pitch");
 
             rb.AddRelativeTorque((new Vector3(0, 0, -pitch) * pitchAccel) * Time.fixedDeltaTime, ForceMode.Acceleration);
             if (movement.z < 0f)
