@@ -35,7 +35,6 @@ public class GravityGun : BTool
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("test");
             OnInputToggle();
 
         }

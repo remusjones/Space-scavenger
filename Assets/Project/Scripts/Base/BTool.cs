@@ -74,10 +74,8 @@ public class BTool : MonoBehaviour, ITool
     {
         RaycastHit hit;
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
-        Debug.DrawRay(ray.origin, ray.direction * range);
         if (Physics.Raycast(ray, out hit, range, layermask))
         {
-            Debug.Log(hit.collider.gameObject.name);
             raycastHit = hit;
             return true;
         }
