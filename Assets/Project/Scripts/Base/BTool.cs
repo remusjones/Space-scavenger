@@ -69,6 +69,7 @@ public class BTool : MonoBehaviour, ITool
         }
     }
 
+    public virtual void AngleToolToCamera() { }
     public virtual bool RaycastFromCamera(out RaycastHit raycastHit)
     {
         RaycastHit hit;

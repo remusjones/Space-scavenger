@@ -19,6 +19,7 @@ public class WeldTool : BTool
     // Update is called once per frame
     protected override void Update()
     {
+        AngleToolToCamera();
         if (Input.GetMouseButton(0))
         {
             weaponLineRenderer.enabled = true;
@@ -38,22 +39,17 @@ public class WeldTool : BTool
                 }
             }
         }
-        //if (Input.GetMouseButtonDown(1))
-        //{
-        //    weaponLineRenderer.enabled = true;
-        //    Shoot(damage, 5f);
-        //    ApplyKnockback(playerRigidbody, playerKnockback);
-        //}
-
-
-
         if (Input.GetKeyDown(KeyCode.R))
         {
             Reload();
         }
     }
 
-
+    public override void AngleToolToCamera()
+    {
+        Vector3 pos = playerCamera.transform.position + (playerCamera.transform.forward * range);
+        this.weaponNozzle.parent.LookAt(pos, playerRigidbody.transform.up);
+    }
     public override void Shoot(float damage, float ammoCost, float ammoMultiplier = 0.0f)
     {
         if (!CanShoot(ammoCost))
