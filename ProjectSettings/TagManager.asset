@@ -14,7 +14,7 @@ TagManager:
   - 
   - 
   - Interact
-  - Ship
+  - ShipCollidable
   - Helmet UI
   - Player
   - OtherPlayer

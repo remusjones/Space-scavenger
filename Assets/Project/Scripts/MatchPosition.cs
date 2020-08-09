@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestScript : MonoBehaviour
+public class MatchPosition : MonoBehaviour
 {
     public Transform _Target;
 
