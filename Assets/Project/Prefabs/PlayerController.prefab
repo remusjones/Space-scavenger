@@ -12146,15 +12146,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponNozzle: {fileID: 1749232700}
-  weaponLineRenderer: {fileID: 1281639615}
-  particleToPlayOnCollisionRayHit: {fileID: 397660762}
   playerRigidbody: {fileID: -2958066768259162604}
+  playerCamera: {fileID: 0}
   damage: 1
   range: 5
   playerKnockback: 0
   magazineAmount: 30
   currentMagazineAmount: 30
   storedAmmo: 90
+  layermask:
+    serializedVersion: 2
+    m_Bits: 0
   shootCooldown: 0
   reloadCooldown: 0
 --- !u!120 &1281639615
@@ -12313,7 +12315,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 1000
-  field of view: 60
+  field of view: 90
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
