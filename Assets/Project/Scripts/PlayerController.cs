@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     [Header("Player Controls and Settings")]
     public bool _Seated = false;
+    public Seat _Seat = null;
 
     public float camSens = 0.25f; //How sensitive it with mouse
     public float turnSpeed = 1.0f;
@@ -27,7 +28,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     float residualDivider = 15f;
     [SerializeField]
     float residualDeductionMultiplier = 5f;
-    private Rigidbody rb;
+    [HideInInspector] public Rigidbody rb;
     [SerializeField]
     private float _StartDirectionAccelleration;
     float directionAccel = 100f;
@@ -60,6 +61,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     private float velocityDamageMultiplier = 0.1f;
 
     [Header("UI Settings")]
+    public GameObject _Canvas;
     public float _InteractRange;
     public LayerMask _InteractLayer;
     public float maxDisplayAngle = 20f;
@@ -83,6 +85,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     private void Start()
     {
         inputController = GetComponent<PlayerInputController>();
+        inputController.SetHasInteraction(true);
         _StartDirectionAccelleration = directionAccel;
         rb = this.GetComponent<Rigidbody>();
         vignetteController = GameObject.FindObjectOfType<VignetteController>();
@@ -95,26 +98,13 @@ public class PlayerController : MonoBehaviour, IDamageable
         if (uiDescription !=null)
             uiDescriptionTransform = uiDescription.GetComponent<RectTransform>();
     }
-    private void Update()
-    {
-        if (_Seated)
-        {
-            rb.isKinematic = true;
-            directionAccel = 0;
-            if (InteractionButtonDown())
-            {
-                _Seated = false;
-            }
-        }
-        else
-        {
-            rb.isKinematic = false;
-            directionAccel = _StartDirectionAccelleration;
-        }
-    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (_Seated)
+            return;
+
         Cursor.lockState = CursorLockMode.Locked;
         rb.angularVelocity -= rb.angularVelocity / 10;
         float mX = Input.GetAxis("Mouse X");
@@ -268,11 +258,6 @@ public class PlayerController : MonoBehaviour, IDamageable
             }
             else
             {
-                if (!_Seated)
-                    inputController.SetHasInteraction(false);
-                else
-                    inputController.SetHasInteraction(true);
-
                 _InteractMarker.enabled = false;
                 _DefaultMarker.enabled = true;
                 _InteractCircle.fillAmount = 0f;
@@ -326,10 +311,6 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
         Debug.DrawRay(transform.position, transform.forward);
     }
-    bool InteractionButtonDown()
-    {
-        return Input.GetKeyDown(KeyCode.E);
-    }
 
     public void Damage(float damage)
     {
@@ -357,5 +338,12 @@ public class PlayerController : MonoBehaviour, IDamageable
 #if UNITY_EDITOR
         lastHitMagnitude = magnitude;
 #endif
+    }
+    public void ExitSeat()
+    {
+        if(_Seat != null)
+        {
+            _Seat.ExitSeat(this);
+        }
     }
 }

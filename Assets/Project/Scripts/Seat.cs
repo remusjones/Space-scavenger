@@ -6,31 +6,57 @@ public class Seat : MonoBehaviour,IObjectInteract
 {
     public Transform _SeatAnchor;
     public Transform _ExitAnchor;
-    public UnityEvent _SeatEvent;
+    public UnityEvent _SeatEnterEvent;
+    public UnityEvent _SeatExitEvent;
     public GameObject _CurrentPlayer;
+    public PlayerController _Player;
+
+    bool hasPlayer = false;
+    
     public void Interact(PlayerController player)
     {
-        player._Seated = true;
-        player.transform.SetPositionAndRotation(_SeatAnchor.position,_SeatAnchor.rotation);
-        player.transform.SetParent(transform);
-        player.GetComponent<Rigidbody>().isKinematic = true;
+        EnterSeat(player);
+    }
+    public void EnterSeat(PlayerController player)
+    {
+        _Player = player;
+        _Player._Seated = true;
+        _Player._Seat = this;
+        _Player._Canvas.SetActive(false);
+        _Player.transform.SetPositionAndRotation(_SeatAnchor.position, _SeatAnchor.rotation);
+        _Player.transform.SetParent(transform);
+        _Player.rb.isKinematic = true;
+
         _CurrentPlayer = player.gameObject;
-        _SeatEvent.Invoke();
+        _SeatEnterEvent.Invoke();
+
+        hasPlayer = true;
     }
-    public void DisablePlayer()
+    public void ExitSeat(PlayerController player)
     {
-        _CurrentPlayer.SetActive(false);
+        if (!hasPlayer)
+            return;
+        _Player = player;
+        _Player._Canvas.SetActive(true);
+        _Player.transform.SetPositionAndRotation(_ExitAnchor.position, _ExitAnchor.rotation);
+        _Player._Seated = false;
+        _Player._Seat = null;
+        _Player.rb.isKinematic = false;
+        _Player.transform.SetParent(null);       
+
+        _SeatExitEvent.Invoke();
+        hasPlayer = false;
+
+    }
+    public void EnablePlayer(bool enabled){ _CurrentPlayer.SetActive(enabled); }
+    public void MatchVelocity(Rigidbody VelocityToMatch) 
+    {
+        Debug.Log("PLAYER BEFORE VELOCITY" + _Player.rb.velocity);
+        _Player.rb.velocity = VelocityToMatch.velocity;
+        _Player.rb.angularVelocity = VelocityToMatch.angularVelocity;
+        Debug.Log("PLAYER After VELOCITY" + _Player.rb.velocity);
+        Debug.Log("SHIP Velocity" + VelocityToMatch.velocity);
+
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
