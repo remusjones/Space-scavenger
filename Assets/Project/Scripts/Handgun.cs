@@ -8,12 +8,6 @@ public class Handgun : BTool
     private ParticleSystem projectileEffect = null;
     [SerializeField]
     private ParticleSystem muzzleFlash = null;
-    protected override void Start()
-    {
-        onShootCoroutine = ShootCoroutine(fireRate);
-        onReloadCoroutine = ReloadWeaponCoroutine(reloadSpeed);
-    }
-
     public override IEnumerator ShootCoroutine(float fireRate)
     {
 
@@ -49,12 +43,15 @@ public class Handgun : BTool
     /// </summary>
     public void ShootWeapon()
     {
-        if (isShootCoroutineRunning)
-            return;
-        else
+        if (this.CanShoot(1f))
         {
-            onShootCoroutine = ShootCoroutine(fireRate);
-            StartCoroutine(onShootCoroutine);
+            if (isShootCoroutineRunning)
+                return;
+            else
+            {
+                onShootCoroutine = ShootCoroutine(fireRate);
+                StartCoroutine(onShootCoroutine);
+            }
         }
     }
     public void ReloadWeapon()
