@@ -42,6 +42,9 @@ public class PlayerWeaponController : MonoBehaviour
         }
 
     }
+    public void OnDropTool(Transform positionToDrop) { } // will place at location and parent.
+    public void OnDropTool() { } // will drop from hand. 
+    public void OnDropTool(Vector3 pos) { } // will place at location 
     private void Update()
     {
         if (activeTool)

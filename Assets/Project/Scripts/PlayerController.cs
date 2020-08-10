@@ -191,9 +191,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         while (angleExceeded == false)
         {
             if (!textDescription || !uiDescription || !playerCamera || !lastDisplayedObject)
-                yield return null;
-            if (lastDisplayedObject.transform == null)
-                yield return null;
+                break;
 
             Vector3 angleAxis = lastDisplayedObject.transform.position - this.transform.position;
             float angle = Vector3.Angle(this.transform.forward, angleAxis);
@@ -211,6 +209,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
             yield return new WaitForEndOfFrame();
         }
+        yield return null;
     }
 
     /// <summary>
@@ -262,7 +261,6 @@ public class PlayerController : MonoBehaviour, IDamageable
                             updateObjectDisplay = null;
                             ResetDisplay();
                         }
-
                         lastDisplayedObject = hit.collider.gameObject;
                         StartCoroutine(DisplayObject(objectDescription, maxDisplayAngle));
                     }

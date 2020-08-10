@@ -1266,7 +1266,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1691489925}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.00018586}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 0.3699057, y: 0.3699057, z: 0.3699057}
   m_Children:
   - {fileID: 1867218150}
@@ -1274,10 +1274,10 @@ RectTransform:
   m_Father: {fileID: 719422442}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 163, y: -352}
-  m_SizeDelta: {x: 372.76318, y: 151.18793}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 201, y: 106}
+  m_SizeDelta: {x: 372.76318, y: 173.18793}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1691489929
 CanvasRenderer:
@@ -1330,9 +1330,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DoNotTesselate: 0
-  savedPos: {x: -236.99994, y: -126.82837, z: 0.00017379997}
+  savedPos: {x: -199.00003, y: -100.53993, z: 1.0001416}
   savedUp: {x: 0, y: 1, z: 0}
-  savedRectSize: {x: 372.76318, y: 151.18793}
+  savedRectSize: {x: 372.76318, y: 173.18793}
   savedColor: {r: 0.75, g: 0.9530798, b: 1, a: 0.392}
   savedTextUV0: {x: 0, y: 0}
   savedFill: 1
@@ -2142,7 +2142,7 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0.5
+          m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -2516,11 +2516,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22482398, guid: 132e7f65a3fd16f48bb0cfcc88ef5e27, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -451.30005
+      value: -451.30008
       objectReference: {fileID: 0}
     - target: {fileID: 22482398, guid: 132e7f65a3fd16f48bb0cfcc88ef5e27, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -117.79993
+      value: -117.79996
       objectReference: {fileID: 0}
     - target: {fileID: 22493858, guid: 132e7f65a3fd16f48bb0cfcc88ef5e27, type: 3}
       propertyPath: m_LocalPosition.x
