@@ -35,15 +35,23 @@ public class PlayerInputController : MonoBehaviour
     [Tooltip("Event fired when the user presses the primary mouse key")]
     [SerializeField]
     UnityEvent PrimaryMouseKeyEvent;
+    [SerializeField]
+    UnityEvent PrimaryMouseKeyUpEvent;
+
     [Tooltip("Event fired when the user presses the secondaru mouse key")]
     [SerializeField]
     UnityEvent SecondaryMouseKeyEvent;
+    [SerializeField]
+    UnityEvent SecondaryMousekeyUpEvent;
     [Tooltip("Event fired when the user presses the interact key")]
     [SerializeField]
     UnityEvent OnInteractKeyEvent;
     [Tooltip("Event fired when the user presses the change weapon key")]
     [SerializeField]
     UnityEvent ChangeWeaponEvent;
+    [Tooltip("Event fired when the user presses the reload weapon key")]
+    [SerializeField]
+    UnityEvent OnWeaponReloadEvent;
     [Tooltip("Event fired when the user holds the interact key")]
     [SerializeField]
     UnityEvent OnInteractHoldComplete;
@@ -84,7 +92,7 @@ public class PlayerInputController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButton(primaryMouseKey))
+        if (Input.GetMouseButtonDown(primaryMouseKey))
         {
             if (!primaryButtonDown)
             {
@@ -93,9 +101,8 @@ public class PlayerInputController : MonoBehaviour
                 StartCoroutine(PrimaryMouseHeldCoroutine());
             }
         }
-        else primaryButtonDown = false;
 
-        if (Input.GetMouseButton(secondaryMouseKey))
+        if (Input.GetMouseButtonDown(secondaryMouseKey))
         {
             if (!secondaryButtonDown)
             {
@@ -105,7 +112,7 @@ public class PlayerInputController : MonoBehaviour
             }
         }
         else secondaryButtonDown = false;
-        if (Input.GetKey(InteractionKey))
+        if (Input.GetKeyDown(InteractionKey))
         {
             if (!interactionKeyDown)
             {
@@ -115,6 +122,24 @@ public class PlayerInputController : MonoBehaviour
             }
         }
         else interactionKeyDown = false;
+
+        if (Input.GetKeyDown(reloadKey))
+            OnWeaponReloadEvent?.Invoke();
+
+        if (Input.GetMouseButtonUp(primaryMouseKey))
+        {
+            PrimaryMouseKeyUpEvent?.Invoke();
+            primaryButtonDown = false;
+        }
+        if (Input.GetMouseButtonUp(secondaryMouseKey))
+        {
+            SecondaryMousekeyUpEvent?.Invoke();
+            secondaryButtonDown = false;
+        }
+        if (Input.GetKeyUp(InteractionKey))
+        {
+            interactionKeyDown = false;
+        }
     }
 
     IEnumerator PrimaryMouseHeldCoroutine()

@@ -10,37 +10,49 @@ public class WeldTool : BTool
     [SerializeField]
     protected ParticleSystem particleToPlayOnCollisionRayHit = null;
 
-
     
     // Update is called once per frame
     protected override void Update()
     {
         AngleToolToCamera();
-        if (Input.GetMouseButton(0))
+        if (isPrimaryDown)
         {
+            ShootTool();
             weaponLineRenderer.enabled = true;
-            Shoot(damage, 1f, 1f * Time.deltaTime);
-        }
-        else
-        {
-            weaponLineRenderer.enabled = false;
-            if (particleToPlayOnCollisionRayHit.isPlaying)
-            {
-                particleToPlayOnCollisionRayHit.Stop(true);
-
-
-                foreach (Light light in particleToPlayOnCollisionRayHit.GetComponentsInChildren<Light>())
-                {
-                    light.enabled = false;
-                }
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Reload();
         }
     }
 
+    public void ShootTool()
+    {
+        weaponLineRenderer.enabled = true;
+        Shoot(damage, 1f, 1f * Time.deltaTime);
+        
+    }
+
+    public override void OnPrimaryInputRelease()
+    {
+        weaponLineRenderer.enabled = false;
+        if (particleToPlayOnCollisionRayHit.isPlaying)
+        {
+            particleToPlayOnCollisionRayHit.Stop(true);
+
+
+            foreach (Light light in particleToPlayOnCollisionRayHit.GetComponentsInChildren<Light>())
+            {
+                light.enabled = false;
+            }
+        }
+    }
+    public override void OnReloadInput()
+    {
+        if (isReloadCoroutineRunning)
+            return;
+        else
+        {
+            onReloadCoroutine = ReloadWeaponCoroutine(reloadSpeed);
+            StartCoroutine(onReloadCoroutine);
+        }
+    }
 
     public override void Shoot(float damage, float ammoCost, float ammoMultiplier = 0.0f)
     {

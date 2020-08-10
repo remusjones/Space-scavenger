@@ -54,6 +54,9 @@ public class BTool : MonoBehaviour, ITool
 
     protected IEnumerator onShootCoroutine = null;
     protected IEnumerator onReloadCoroutine = null;
+
+    protected bool isPrimaryDown = false;
+    protected bool isSecondaryDown = false;
     protected virtual void Start()
     {
         onShootCoroutine = ShootCoroutine(fireRate);
@@ -184,6 +187,11 @@ public class BTool : MonoBehaviour, ITool
         OnShootEvent();
     }
 
+    public virtual void OnPrimaryInputDown() { isPrimaryDown = true; }
+    public virtual void OnSecondaryInputDown() { isSecondaryDown = true; }
+    public virtual void OnPrimaryInputRelease() { isPrimaryDown = false; }
+    public virtual void OnSecondaryInputRelease() { isSecondaryDown = false; }
+    public virtual void OnReloadInput() { }
     protected virtual void Update()
     {
     }

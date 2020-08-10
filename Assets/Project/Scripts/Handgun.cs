@@ -11,39 +11,28 @@ public class Handgun : BTool
     public override IEnumerator ShootCoroutine(float fireRate)
     {
 
-        Debug.Log("Coroutine Entered.. ");
         if (isShootCoroutineRunning || !CanShoot(1))
             yield return null;
 
 
-        Debug.Log("Coroutine Starting.. ");
         isShootCoroutineRunning = true;
         OnShootEvent();
         Shoot(damage, 1f, 0);
         yield return new WaitForSeconds(fireRate);
         isShootCoroutineRunning = false;
-        Debug.Log("Coroutine Ending.. ");
         yield return null;
     }
     protected override void Update()
     {
         base.Update();
-        if (Input.GetMouseButtonDown(0))
-        {
-            ShootWeapon();
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            ReloadWeapon();
-        }
     }
 
     /// <summary>
     /// Use this in input events
     /// </summary>
-    public void ShootWeapon()
+    public override void OnPrimaryInputDown()
     {
-        if (this.CanShoot(1f))
+        if (this.CanShoot(1f) && this.enabled)
         {
             if (isShootCoroutineRunning)
                 return;
@@ -54,7 +43,7 @@ public class Handgun : BTool
             }
         }
     }
-    public void ReloadWeapon()
+    public override void OnReloadInput()
     {
         if (isReloadCoroutineRunning)
             return;

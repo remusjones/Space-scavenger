@@ -21,7 +21,7 @@ public class TetherGun : BTool
     private LineRenderer lineRenderer = null;
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
         anchorPoint = new GameObject("AnchorPoint").transform;
         anchorPoint.parent = this.transform;
@@ -32,24 +32,15 @@ public class TetherGun : BTool
     protected override void Update()
     {
         AngleToolToCamera();
-        if (Input.GetMouseButton(0))
+        if (isPrimaryDown)
         {
-
-
-            if (holdItem == false)
+            if (holdItem && grabbedRigidbody == null)
+            {
                 Shoot();
-
-            holdItem = true;
-            // OnInputToggle();
-
-        }
-        else
-        {
-            holdItem = false;
-            grabbedRigidbody = null;
+            }
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (isSecondaryDown)
         {
             if (grabbedRigidbody)
                 pullItem = true;
@@ -60,15 +51,28 @@ public class TetherGun : BTool
             pullItem = false;
     }
 
-    public void OnInputToggle()
+    public override void OnPrimaryInputDown()
     {
-        holdItem = !holdItem;
-
-        if (holdItem)
-        {
-            Shoot();
-        }
+        base.OnPrimaryInputDown();
+        holdItem = true;
     }
+    public override void OnPrimaryInputRelease()
+    {
+        base.OnPrimaryInputRelease();
+        holdItem = false;
+        grabbedRigidbody = null;
+    }
+
+    public override void OnSecondaryInputDown()
+    {
+        base.OnSecondaryInputDown();
+    }
+    public override void OnSecondaryInputRelease()
+    {
+        base.OnSecondaryInputRelease();
+    }
+
+
     public override void Shoot()
     {
         base.Shoot();
