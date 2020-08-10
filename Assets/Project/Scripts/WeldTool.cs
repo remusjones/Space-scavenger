@@ -12,16 +12,22 @@ public class WeldTool : BTool
 
     
     // Update is called once per frame
-    protected override void Update()
+    public override void UpdateTool()
     {
         AngleToolToCamera();
         if (isPrimaryDown)
         {
             ShootTool();
-            weaponLineRenderer.enabled = true;
+            if (!CanShoot(1f * Time.deltaTime))
+            {
+                OnPrimaryInputRelease();
+            }
         }
     }
-
+    public override string GetPrintable()
+    {
+        return "Weld Tool";
+    }
     public void ShootTool()
     {
         weaponLineRenderer.enabled = true;
@@ -31,6 +37,7 @@ public class WeldTool : BTool
 
     public override void OnPrimaryInputRelease()
     {
+        base.OnPrimaryInputRelease();
         weaponLineRenderer.enabled = false;
         if (particleToPlayOnCollisionRayHit.isPlaying)
         {
@@ -56,8 +63,11 @@ public class WeldTool : BTool
 
     public override void Shoot(float damage, float ammoCost, float ammoMultiplier = 0.0f)
     {
-        if (!CanShoot(ammoCost))
+        if (!CanShoot(ammoCost * ammoMultiplier))
+        {
+            weaponLineRenderer.enabled = false;
             return;
+        }
 
        
         ApplyKnockback(playerRigidbody, playerKnockback);

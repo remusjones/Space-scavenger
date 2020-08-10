@@ -29,7 +29,7 @@ public class TetherGun : BTool
     }
 
     // Update is called once per frame
-    protected override void Update()
+    public override void UpdateTool()
     {
         AngleToolToCamera();
         if (isPrimaryDown)
@@ -50,7 +50,10 @@ public class TetherGun : BTool
         else
             pullItem = false;
     }
-
+    public override string GetPrintable()
+    {
+        return "Tether Tool";
+    }
     public override void OnPrimaryInputDown()
     {
         base.OnPrimaryInputDown();

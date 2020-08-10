@@ -31,7 +31,7 @@ public class GravityGun : BTool
     }
 
     // Update is called once per frame
-    protected override void Update()
+    public override void UpdateTool()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -45,7 +45,10 @@ public class GravityGun : BTool
                 throwItem = true;
         }
     }
-
+    public override string GetPrintable()
+    {
+        return "Gravity Gun";
+    }
     public void OnInputToggle()
     {
         holdItem = !holdItem;

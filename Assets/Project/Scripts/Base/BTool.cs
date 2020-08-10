@@ -3,7 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class BTool : MonoBehaviour, ITool
+
+public enum ToolType
+{
+    NONE,
+    WELDER, 
+    TETHER, 
+    HANDGUN
+}
+
+public class BTool : MonoBehaviour, ITool, IDescription, IObjectInteract
 {
 
     [Header("Tool References")]
@@ -17,6 +26,8 @@ public class BTool : MonoBehaviour, ITool
     protected Camera playerCamera = null;
 
     [Header("Tool Values")]
+    [SerializeField]
+    protected ToolType ToolType = ToolType.NONE;
     [SerializeField]
     protected float damage;
     [SerializeField]
@@ -55,6 +66,12 @@ public class BTool : MonoBehaviour, ITool
     protected IEnumerator onShootCoroutine = null;
     protected IEnumerator onReloadCoroutine = null;
 
+    public void SetDefaults(Rigidbody a_playerRigidbody, Camera a_playerCamera, LayerMask a_layermask)
+    {
+        this.playerRigidbody = a_playerRigidbody;
+        this.playerCamera = a_playerCamera;
+        this.layermask = a_layermask;
+    }
     protected bool isPrimaryDown = false;
     protected bool isSecondaryDown = false;
     protected virtual void Start()
@@ -192,7 +209,7 @@ public class BTool : MonoBehaviour, ITool
     public virtual void OnPrimaryInputRelease() { isPrimaryDown = false; }
     public virtual void OnSecondaryInputRelease() { isSecondaryDown = false; }
     public virtual void OnReloadInput() { }
-    protected virtual void Update()
+    public virtual void UpdateTool()
     {
     }
 
@@ -200,5 +217,24 @@ public class BTool : MonoBehaviour, ITool
     {
         Vector3 torqueDir = player.transform.position - weaponNozzle.position;
         player.AddForce((-player.transform.forward * force) * Time.fixedDeltaTime, ForceMode.Impulse);
+    }
+
+    public virtual ToolType GetToolType()
+    {
+        return this.ToolType;
+    }
+
+    public virtual BTool GetToolBase()
+    {
+        return this;
+    }
+
+    public virtual string GetPrintable()
+    {
+        return "Tool";
+    }
+
+    public virtual void Interact(PlayerController player)
+    {
     }
 }

@@ -72,7 +72,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     private RectTransform canvasTransform = null;
     private RectTransform uiDescriptionTransform = null;
     private PlayerInputController inputController = null;
-    
+    [SerializeField]
+    ChangeToolTypeEvent toolTypeEvent;
 
 #if UNITY_EDITOR
     [Header("Debug")]
@@ -191,6 +192,8 @@ public class PlayerController : MonoBehaviour, IDamageable
         {
             if (!textDescription || !uiDescription || !playerCamera || !lastDisplayedObject)
                 yield return null;
+            if (lastDisplayedObject.transform == null)
+                yield return null;
 
             Vector3 angleAxis = lastDisplayedObject.transform.position - this.transform.position;
             float angle = Vector3.Angle(this.transform.forward, angleAxis);
@@ -235,11 +238,13 @@ public class PlayerController : MonoBehaviour, IDamageable
     }
     private void LateUpdate()
     {
+
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, _InteractRange, _InteractLayer))
         {
             IObjectInteract objectInteract = hit.collider.GetComponent<IObjectInteract>();
             IDescription objectDescription = hit.collider.GetComponent<IDescription>();
+
             if (objectInteract != null)
             {
                 inputController.SetHasInteraction(true);
@@ -309,6 +314,11 @@ public class PlayerController : MonoBehaviour, IDamageable
         if (Physics.Raycast(transform.position, transform.forward, out hit, _InteractRange, _InteractLayer))
         {
             IObjectInteract objectInteract = hit.collider.GetComponent<IObjectInteract>();
+            ITool tool = hit.collider.GetComponent<ITool>();
+            if (tool != null)
+            {
+                toolTypeEvent?.Invoke(tool.GetToolBase());
+            }
             if (objectInteract != null)
             {
                 objectInteract.Interact(this);

@@ -10,5 +10,8 @@ public interface ITool
     void AddAmmo(float addAmount);
 
     void ApplyKnockback(Rigidbody player, float force);
+    ToolType GetToolType();
+
+    BTool GetToolBase();
 
 }

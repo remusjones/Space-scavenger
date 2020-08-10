@@ -22,9 +22,9 @@ public class Handgun : BTool
         isShootCoroutineRunning = false;
         yield return null;
     }
-    protected override void Update()
+    public override void UpdateTool()
     {
-        base.Update();
+        base.UpdateTool();
     }
 
     /// <summary>
@@ -70,6 +70,10 @@ public class Handgun : BTool
                 damageable.Damage(damage);
             }
         }
+    }
+    public override string GetPrintable()
+    {
+        return "Handgun";
     }
 
 }
