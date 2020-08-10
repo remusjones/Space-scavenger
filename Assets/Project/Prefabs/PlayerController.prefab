@@ -361,6 +361,81 @@ Transform:
   m_Father: {fileID: 1749232700}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &268268369
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 268268370}
+  - component: {fileID: 268268372}
+  - component: {fileID: 268268371}
+  m_Layer: 11
+  m_Name: HoldCircle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &268268370
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268268369}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00022612}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5437174570935677748}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 25.00023, y: 25.000229}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &268268372
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268268369}
+  m_CullTransparentMesh: 0
+--- !u!114 &268268371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268268369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 35e866292b6fced4291b4827053930f3, type: 3}
+  m_Type: 3
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 0
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &397660760
 GameObject:
   m_ObjectHideFlags: 0
@@ -17076,6 +17151,7 @@ RectTransform:
   m_Children:
   - {fileID: 6862250996116077561}
   - {fileID: 7286953129248548941}
+  - {fileID: 268268370}
   m_Father: {fileID: 9052614535759715635}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -17220,8 +17296,12 @@ MonoBehaviour:
   _StartDirectionAccelleration: 0
   pitchAccel: 160
   movementSound: {fileID: 118735702}
+  uiDescription: {fileID: 710099100}
+  textDescription: {fileID: 606528846}
+  playerCamera: {fileID: 9052614536054953464}
   _InteractMarker: {fileID: 8800324772420758031}
   _DefaultMarker: {fileID: 3455149872751196339}
+  _InteractCircle: {fileID: 268268371}
   health: 100
   magnitudeDamageVelocity: 10
   velocityDamageFloor: 2
@@ -17232,9 +17312,6 @@ MonoBehaviour:
     m_Bits: 257
   maxDisplayAngle: 20
   displayOffset: {x: 0, y: -80}
-  uiDescription: {fileID: 710099100}
-  textDescription: {fileID: 606528846}
-  playerCamera: {fileID: 9052614536054953464}
   lastHitMagnitude: 0
 --- !u!54 &-2958066768259162604
 Rigidbody:
@@ -17714,6 +17791,21 @@ MonoBehaviour:
   OnInteractKeyEvent:
     m_PersistentCalls:
       m_Calls: []
+  OnInteractEarlyRelease:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5330389476163645795}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnInteractEarlyRelease
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   ChangeWeaponEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -17746,7 +17838,19 @@ MonoBehaviour:
         m_CallState: 2
   OnInteractHoldComplete:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5330389476163645795}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: InteractionKeyDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnPrimaryHoldComplete:
     m_PersistentCalls:
       m_Calls: []
@@ -17755,7 +17859,19 @@ MonoBehaviour:
       m_Calls: []
   OnInteractHold:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5330389476163645795}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnInteractHold
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0.5
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnPrimaryHold:
     m_PersistentCalls:
       m_Calls: []
@@ -18338,14 +18454,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8654591a19c4ed4dbf1c4490f712db0, type: 3}
---- !u!198 &2546493467556220696 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 2546493469094353140, guid: f8654591a19c4ed4dbf1c4490f712db0, type: 3}
-  m_PrefabInstance: {fileID: 1689393132}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2546493467556220711 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2546493469094353099, guid: f8654591a19c4ed4dbf1c4490f712db0, type: 3}
+  m_PrefabInstance: {fileID: 1689393132}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &2546493467556220696 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2546493469094353140, guid: f8654591a19c4ed4dbf1c4490f712db0, type: 3}
   m_PrefabInstance: {fileID: 1689393132}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &823389943997174974

@@ -39,9 +39,15 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField]
     private AudioSource movementSound = null;
     private VignetteController vignetteController = null;
+    [SerializeField]
+    private CanvasRenderer uiDescription = null;
+    [SerializeField]
+    private TMPro.TMP_Text textDescription = null;
+    [SerializeField]
+    private Camera playerCamera = null;
     public Image _InteractMarker;
     public Image _DefaultMarker;
-
+    public Image _InteractCircle = null;
     [Header("Player Health")]
     [SerializeField]
     private float health = 100f;
@@ -61,15 +67,11 @@ public class PlayerController : MonoBehaviour, IDamageable
     private IEnumerator updateObjectDisplay = null;
     public Vector2 displayOffset = Vector2.zero;
     
-    [SerializeField]
-    private CanvasRenderer uiDescription = null;
-    [SerializeField]
-    private TMPro.TMP_Text textDescription = null;
-    [SerializeField]
-    private Camera playerCamera = null;
+
     private Canvas descriptionCanvas = null;
     private RectTransform canvasTransform = null;
     private RectTransform uiDescriptionTransform = null;
+    private PlayerInputController inputController = null;
     
 
 #if UNITY_EDITOR
@@ -79,6 +81,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 #endif
     private void Start()
     {
+        inputController = GetComponent<PlayerInputController>();
         _StartDirectionAccelleration = directionAccel;
         rb = this.GetComponent<Rigidbody>();
         vignetteController = GameObject.FindObjectOfType<VignetteController>();
@@ -239,18 +242,15 @@ public class PlayerController : MonoBehaviour, IDamageable
             IDescription objectDescription = hit.collider.GetComponent<IDescription>();
             if (objectInteract != null)
             {
+                inputController.SetHasInteraction(true);
                 _InteractMarker.enabled = true;
                 _DefaultMarker.enabled = false;
-                if (InteractionButtonDown())
-                {
-                    objectInteract.Interact(this);
-                }
                 if (objectDescription != null)
                 {
                     // update current display
                     if (lastDisplayedObject != hit.collider.gameObject)
                     {
-                    
+
                         if (updateObjectDisplay != null && lastDisplayedObject != hit.collider.gameObject)
                         {
                             StopCoroutine(updateObjectDisplay);
@@ -265,18 +265,58 @@ public class PlayerController : MonoBehaviour, IDamageable
             }
             else
             {
+                if (!_Seated)
+                    inputController.SetHasInteraction(false);
+                else
+                    inputController.SetHasInteraction(true);
+
                 _InteractMarker.enabled = false;
                 _DefaultMarker.enabled = true;
+                _InteractCircle.fillAmount = 0f;
             }
-
 
 
         }
         Debug.DrawRay(transform.position, transform.forward);
     }
-    bool InteractionButton()
+
+    public void OnInteractHold(float fill)
     {
-        return Input.GetKey(KeyCode.E);
+        if (_InteractMarker.enabled)
+            _InteractCircle.fillAmount = fill;
+    }
+    public void OnInteractEarlyRelease()
+    {
+        _InteractCircle.fillAmount = 0f;
+    }
+    public void InteractionKeyDown()
+    {
+        _InteractCircle.fillAmount = 0f;
+        if (_Seated)
+        {
+            rb.isKinematic = true;
+            directionAccel = 0;
+            _Seated = false;
+        }
+        else
+        {
+            rb.isKinematic = false;
+            directionAccel = _StartDirectionAccelleration;
+        }
+
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, _InteractRange, _InteractLayer))
+        {
+            IObjectInteract objectInteract = hit.collider.GetComponent<IObjectInteract>();
+            if (objectInteract != null)
+            {
+                objectInteract.Interact(this);
+            }
+
+
+        }
+        Debug.DrawRay(transform.position, transform.forward);
     }
     bool InteractionButtonDown()
     {

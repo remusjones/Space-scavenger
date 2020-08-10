@@ -46,6 +46,8 @@ public class PlayerInputController : MonoBehaviour
     [Tooltip("Event fired when the user presses the interact key")]
     [SerializeField]
     UnityEvent OnInteractKeyEvent;
+    [SerializeField]
+    UnityEvent OnInteractEarlyRelease;
     [Tooltip("Event fired when the user presses the change weapon key")]
     [SerializeField]
     UnityEvent ChangeWeaponEvent;
@@ -87,8 +89,11 @@ public class PlayerInputController : MonoBehaviour
     private float primaryButtonTimer = 0f;
     private float secondaryButtonTimer = 0f;
 
- 
-
+    private bool playerHasInteractionObject = false;
+    public void SetHasInteraction(bool val)
+    {
+        playerHasInteractionObject = val;
+    }
 
     private void Update()
     {
@@ -121,7 +126,6 @@ public class PlayerInputController : MonoBehaviour
                 StartCoroutine(InteractionHeldCoroutine());
             }
         }
-        else interactionKeyDown = false;
 
         if (Input.GetKeyDown(reloadKey))
             OnWeaponReloadEvent?.Invoke();
@@ -181,7 +185,7 @@ public class PlayerInputController : MonoBehaviour
     }
     IEnumerator InteractionHeldCoroutine()
     {
-        while (interactionKeyDown)
+        while (interactionKeyDown && playerHasInteractionObject)
         {
             interactionKeyTimer += Time.deltaTime;
 
@@ -189,11 +193,12 @@ public class PlayerInputController : MonoBehaviour
             if (interactionKeyTimer >= interactionTime)
             {
                 OnInteractHoldComplete?.Invoke();
-                interactionKeyTimer = 0f;
                 break;
             }
             yield return new WaitForEndOfFrame();
         }
+        if (interactionKeyTimer < interactionTime)
+            OnInteractEarlyRelease?.Invoke();
         interactionKeyTimer = 0f;
         yield return null;
     }
