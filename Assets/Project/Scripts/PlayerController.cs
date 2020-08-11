@@ -321,11 +321,12 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     public void OnCollisionEnter(Collision collision)
     {
-        float magnitude = (rb.velocity + rb.angularVelocity).magnitude;
+        float magnitude = 0f;
         Rigidbody otherRigidBody = collision.gameObject.GetComponent<Rigidbody>();
         if (otherRigidBody)
         {
-            magnitude += (otherRigidBody.velocity + otherRigidBody.angularVelocity).magnitude;
+            
+            magnitude = (otherRigidBody.velocity - rb.velocity).magnitude;
         }
 
         if (magnitude > magnitudeDamageVelocity)
@@ -335,6 +336,8 @@ public class PlayerController : MonoBehaviour, IDamageable
             Debug.Log("Player took: " + (velocityDamageFloor * (magnitude * velocityDamageMultiplier)) + " Damage");
             
         }
+
+
 #if UNITY_EDITOR
         lastHitMagnitude = magnitude;
 #endif
