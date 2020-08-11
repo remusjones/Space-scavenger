@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 268268372}
   - component: {fileID: 268268371}
   - component: {fileID: 7977713712056981703}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: HoldCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,7 +235,7 @@ GameObject:
   - component: {fileID: 606528846}
   - component: {fileID: 606528848}
   - component: {fileID: 606528847}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -402,7 +402,7 @@ GameObject:
   - component: {fileID: 710099100}
   - component: {fileID: 710099099}
   - component: {fileID: 710099098}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: TextBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -514,7 +514,7 @@ GameObject:
   - component: {fileID: 933163560}
   - component: {fileID: 933163559}
   - component: {fileID: 933163558}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: SpeedValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -682,7 +682,7 @@ GameObject:
   - component: {fileID: 1034309508}
   - component: {fileID: 1034309507}
   - component: {fileID: 1034309506}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: SpeedText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1104,7 +1104,7 @@ GameObject:
   - component: {fileID: 1684033442}
   - component: {fileID: 1684033441}
   - component: {fileID: 1684033440}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: OxygenValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1271,7 +1271,7 @@ GameObject:
   - component: {fileID: 1691489929}
   - component: {fileID: 1691489928}
   - component: {fileID: 1691489927}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: Left Text Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1350,7 +1350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DoNotTesselate: 0
-  savedPos: {x: -199, y: -317.57272, z: 0.999962}
+  savedPos: {x: -199.00003, y: -500.6987, z: 1.0001472}
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 372.76318, y: 173.18793}
   savedColor: {r: 0.75, g: 0.9530798, b: 1, a: 0.392}
@@ -1369,7 +1369,7 @@ GameObject:
   - component: {fileID: 1867218153}
   - component: {fileID: 1867218152}
   - component: {fileID: 1867218151}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: OxygenText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1537,7 +1537,7 @@ GameObject:
   - component: {fileID: 3260712372565583870}
   - component: {fileID: 8800324772420758031}
   - component: {fileID: 4843861243100070099}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: Interact
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1632,7 +1632,7 @@ GameObject:
   - component: {fileID: 1567386584345462429}
   - component: {fileID: 3455149872751196339}
   - component: {fileID: 3945370950771064512}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: DefaultIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1845,7 +1845,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: -0.09, z: 0}
 --- !u!136 &196605640605520086
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2409,7 +2409,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 116662, guid: 132e7f65a3fd16f48bb0cfcc88ef5e27, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 116662, guid: 132e7f65a3fd16f48bb0cfcc88ef5e27, type: 3}
       propertyPath: m_IsActive
@@ -2421,7 +2421,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 189006, guid: 132e7f65a3fd16f48bb0cfcc88ef5e27, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11405692, guid: 132e7f65a3fd16f48bb0cfcc88ef5e27, type: 3}
       propertyPath: m_Color.a
@@ -2459,6 +2459,14 @@ PrefabInstance:
       propertyPath: ringFill
       value: 0.734
       objectReference: {fileID: 0}
+    - target: {fileID: 11425648, guid: 132e7f65a3fd16f48bb0cfcc88ef5e27, type: 3}
+      propertyPath: interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11425648, guid: 132e7f65a3fd16f48bb0cfcc88ef5e27, type: 3}
+      propertyPath: blocksRaycasts
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 11430226, guid: 132e7f65a3fd16f48bb0cfcc88ef5e27, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -2477,7 +2485,7 @@ PrefabInstance:
       objectReference: {fileID: 9052614536054953464}
     - target: {fileID: 22327806, guid: 132e7f65a3fd16f48bb0cfcc88ef5e27, type: 3}
       propertyPath: m_PlaneDistance
-      value: 1
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 22327806, guid: 132e7f65a3fd16f48bb0cfcc88ef5e27, type: 3}
       propertyPath: m_PixelPerfect
@@ -2489,11 +2497,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22482398, guid: 132e7f65a3fd16f48bb0cfcc88ef5e27, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -451.30005
+      value: -451.30008
       objectReference: {fileID: 0}
     - target: {fileID: 22482398, guid: 132e7f65a3fd16f48bb0cfcc88ef5e27, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -117.7999
+      value: -117.799805
       objectReference: {fileID: 0}
     - target: {fileID: 22493858, guid: 132e7f65a3fd16f48bb0cfcc88ef5e27, type: 3}
       propertyPath: m_LocalPosition.x
