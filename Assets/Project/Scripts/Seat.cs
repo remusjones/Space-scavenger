@@ -25,7 +25,6 @@ public class Seat : MonoBehaviour,IObjectInteract
         _Player.transform.SetPositionAndRotation(_SeatAnchor.position, _SeatAnchor.rotation);
         _Player.transform.SetParent(transform);
         _Player.rb.isKinematic = true;
-
         _CurrentPlayer = player.gameObject;
 
         _SeatEnterEvent.Invoke();
