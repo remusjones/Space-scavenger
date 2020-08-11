@@ -11,7 +11,6 @@ public class Seat : MonoBehaviour,IObjectInteract
     public GameObject _CurrentPlayer;
     public PlayerController _Player;
 
-    bool hasPlayer = false;
     
     public void Interact(PlayerController player)
     {
@@ -28,14 +27,11 @@ public class Seat : MonoBehaviour,IObjectInteract
         _Player.rb.isKinematic = true;
 
         _CurrentPlayer = player.gameObject;
-        _SeatEnterEvent.Invoke();
 
-        hasPlayer = true;
+        _SeatEnterEvent.Invoke();
     }
     public void ExitSeat(PlayerController player)
     {
-        if (!hasPlayer)
-            return;
         _Player = player;
         _Player._Canvas.SetActive(true);
         _Player.transform.SetPositionAndRotation(_ExitAnchor.position, _ExitAnchor.rotation);
@@ -45,13 +41,13 @@ public class Seat : MonoBehaviour,IObjectInteract
         _Player.transform.SetParent(null);       
 
         _SeatExitEvent.Invoke();
-        hasPlayer = false;
-
+        MatchVelocity(FindObjectOfType<Ship>().GetComponent<Rigidbody>());
     }
     public void EnablePlayer(bool enabled){ _CurrentPlayer.SetActive(enabled); }
     public void MatchVelocity(Rigidbody VelocityToMatch) 
     {
-        Debug.Log("PLAYER BEFORE VELOCITY" + _Player.rb.velocity);
+        //Debug.Log("PLAYER BEFORE VELOCITY" + _Player.rb.velocity);
+        
         _Player.rb.velocity = VelocityToMatch.velocity;
         _Player.rb.angularVelocity = VelocityToMatch.angularVelocity;
         Debug.Log("PLAYER After VELOCITY" + _Player.rb.velocity);

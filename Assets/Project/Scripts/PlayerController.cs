@@ -104,7 +104,11 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         if (_Seated)
             return;
-
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            rb.velocity = FindObjectOfType<Ship>().GetComponent<Rigidbody>().velocity;
+            rb.angularVelocity = FindObjectOfType<Ship>().GetComponent<Rigidbody>().angularVelocity;
+        }
         Cursor.lockState = CursorLockMode.Locked;
         rb.angularVelocity -= rb.angularVelocity / 10;
         float mX = Input.GetAxis("Mouse X");
