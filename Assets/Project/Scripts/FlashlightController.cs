@@ -6,8 +6,7 @@ using UnityEngine;
 public class FlashlightController : MonoBehaviour
 {
     Light flashlight = null;
-    [SerializeField]
-    private KeyCode lightKey = KeyCode.T;
+
 
     [SerializeField]
     bool flicker = true;
@@ -23,20 +22,18 @@ public class FlashlightController : MonoBehaviour
     int minFlicker = 15;
 
 
+    public void OnInputDown()
+    {
+        flashlight.enabled = !flashlight.enabled;
+    }
     private void Start()
     {
         flashlight = this.GetComponent<Light>();
+
         defaultIntensity = flashlight.intensity;
         if (flicker)
             StartCoroutine(LightFlickerTimer(flickerMinTime, flickerMaxTime));
-    }
-    // Update is called once per frame
-    void LateUpdate()
-    {
-        if (Input.GetKeyDown(lightKey))
-        {
-            flashlight.enabled = !flashlight.enabled;
-        }
+        flashlight.enabled = false;
     }
     IEnumerator LightFlickerTimer(float rangeMin, float rangeMax)
     {

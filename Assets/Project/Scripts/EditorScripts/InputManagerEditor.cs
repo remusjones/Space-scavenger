@@ -10,15 +10,18 @@ public class InputManagerEditor : Editor
     bool showInteractionSettings = false;
     bool showOtherSettings = false;
     bool showReloadEvent = false;
+
+    bool showFlashlightEvents = false;
     public override void OnInspectorGUI()
     {
 
         var reloadKeyProperty = serializedObject.FindProperty("reloadKey");
         var changeToolKeyProperty = serializedObject.FindProperty("changeToolKey");
         var interactionKeyProperty = serializedObject.FindProperty("InteractionKey");
+        var flashlightkey = serializedObject.FindProperty("flashlightKey");
         var primaryMouseKeyProperty = serializedObject.FindProperty("primaryMouseKey");
         var secondaryMouseKeyProperty = serializedObject.FindProperty("secondaryMouseKey");
-
+       
 
         showKeybindSettings = EditorGUILayout.Foldout(showKeybindSettings, "Keybind Settings");
 
@@ -27,8 +30,10 @@ public class InputManagerEditor : Editor
             EditorGUILayout.PropertyField(reloadKeyProperty);
             EditorGUILayout.PropertyField(changeToolKeyProperty);
             EditorGUILayout.PropertyField(interactionKeyProperty);
+            EditorGUILayout.PropertyField(flashlightkey);
             EditorGUILayout.PropertyField(primaryMouseKeyProperty);
             EditorGUILayout.PropertyField(secondaryMouseKeyProperty);
+
         }
         showPrimaryMouseSettings = EditorGUILayout.Foldout(showPrimaryMouseSettings, "Primary Mouse Events");
         var primaryMouseDownProperty = serializedObject.FindProperty("PrimaryMouseKeyEvent");
@@ -75,6 +80,15 @@ public class InputManagerEditor : Editor
         {
             EditorGUILayout.PropertyField(reloadDownProperty);
         }
+        showFlashlightEvents = EditorGUILayout.Foldout(showFlashlightEvents, "Flashlight Events");
+        var flashlightDownProperty = serializedObject.FindProperty("FlashlightKeyEvent");
+        var flashlightUpProperty = serializedObject.FindProperty("FlashlightKeyUpEvent");
+        if (showFlashlightEvents)
+        {
+            EditorGUILayout.PropertyField(flashlightDownProperty);
+            EditorGUILayout.PropertyField(flashlightUpProperty);
+        }
+
         showOtherSettings = EditorGUILayout.Foldout(showOtherSettings, "Other Settings");
         var interactionTimeProperty = serializedObject.FindProperty("interactionTime");
         if (showOtherSettings)

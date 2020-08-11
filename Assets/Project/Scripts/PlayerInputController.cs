@@ -23,6 +23,9 @@ public class PlayerInputController : MonoBehaviour
     [Tooltip("The interaction Key")]
     [SerializeField]
     private KeyCode InteractionKey = KeyCode.F;
+    [SerializeField]
+    private KeyCode flashlightKey = KeyCode.T;
+
 
     [Tooltip("The primary mouse button Key")]
     [SerializeField]
@@ -31,12 +34,18 @@ public class PlayerInputController : MonoBehaviour
     [SerializeField]
     private int secondaryMouseKey = 1;
 
+
     [Header("Events")]
     [Tooltip("Event fired when the user presses the primary mouse key")]
     [SerializeField]
     UnityEvent PrimaryMouseKeyEvent;
     [SerializeField]
     UnityEvent PrimaryMouseKeyUpEvent;
+
+    [SerializeField]
+    UnityEvent FlashlightKeyEvent;
+    [SerializeField]
+    UnityEvent FlashlightKeyUpEvent;
 
     [Tooltip("Event fired when the user presses the secondaru mouse key")]
     [SerializeField]
@@ -144,6 +153,15 @@ public class PlayerInputController : MonoBehaviour
         {
             interactionKeyDown = false;
         }
+        if (Input.GetKeyDown(flashlightKey))
+        {
+            FlashlightKeyEvent?.Invoke();
+        }
+        if (Input.GetKeyUp(flashlightKey))
+        {
+            FlashlightKeyUpEvent?.Invoke();
+        }
+
     }
 
     IEnumerator PrimaryMouseHeldCoroutine()
