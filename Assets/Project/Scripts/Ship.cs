@@ -103,8 +103,8 @@ public class Ship : MonoBehaviour
             if (movement.z < 0f)
                 movement.z = Mathf.Clamp(movement.z, -maxBackwardsThrust, 0f);
 
-            rb.AddRelativeForce((new Vector3(movement.x * movementSpeedPerAxis.x, movement.y * movementSpeedPerAxis.y, movement.z * movementSpeedPerAxis.z) * directionAccel) * Time.fixedDeltaTime, ForceMode.Force);
-            rb.AddRelativeTorque(-(residualVelocity.y), (residualVelocity.x), 0f);
+            rb.AddRelativeForce((new Vector3(movement.x * movementSpeedPerAxis.x, movement.y * movementSpeedPerAxis.y, movement.z * movementSpeedPerAxis.z) * directionAccel) * Time.fixedDeltaTime, ForceMode.Acceleration);
+            rb.AddRelativeTorque(-(residualVelocity.y), (residualVelocity.x), 0f,ForceMode.Acceleration);
 
             if (Input.GetKey(KeyCode.LeftAlt))
             {
