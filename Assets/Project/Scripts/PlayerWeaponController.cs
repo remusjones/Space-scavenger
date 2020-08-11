@@ -23,12 +23,14 @@ public class PlayerWeaponController : MonoBehaviour
     private LayerMask layermask;
     public void OnChangeTool(BTool newTool)
     {
+        Vector3 newToolScale = newTool.transform.localScale;
         // replace old tool, with our current.. 
         if (activeTool)
         {
             activeTool.transform.parent = newTool.transform.parent;
             activeTool.transform.position = newTool.transform.position;
             activeTool.transform.rotation = newTool.transform.rotation;
+            activeTool.transform.localScale = newToolScale;
         }
         if (newTool) 
         {
@@ -36,6 +38,7 @@ public class PlayerWeaponController : MonoBehaviour
             activeTool.transform.parent = toolLocationTransform;
             activeTool.transform.position = toolLocationTransform.position;
             activeTool.transform.rotation = toolLocationTransform.rotation;
+
 
             // setup defaults.. 
             activeTool.SetDefaults(playerRigidbody, playerCamera, layermask);
