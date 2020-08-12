@@ -207,7 +207,7 @@ public class PlayerInputController : MonoBehaviour
         {
             interactionKeyTimer += Time.deltaTime;
 
-            OnInteractHold?.Invoke(interactionKeyTimer);
+            OnInteractHold?.Invoke(interactionKeyTimer/interactionTime);
             if (interactionKeyTimer >= interactionTime)
             {
                 OnInteractHoldComplete?.Invoke();
