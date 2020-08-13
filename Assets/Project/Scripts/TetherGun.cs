@@ -19,7 +19,7 @@ public class TetherGun : BTool
     private float retractForce = 0.5f;
     [SerializeField]
     private LineRenderer lineRenderer = null;
-
+    private float scrollScale = 5f;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -97,9 +97,17 @@ public class TetherGun : BTool
         if (holdItem && grabbedRigidbody)
         {
             grabbedRigidbody.AddForce(((((anchorPoint.position - grabbedRigidbody.transform.position)) * Vector3.Distance(anchorPoint.position, grabbedRigidbody.transform.position)) * moveForce) * Time.fixedDeltaTime, ForceMode.Force);
+            
             if (pullItem)
             {
                 anchorPoint.position = Vector3.MoveTowards(weaponNozzle.position, anchorPoint.position, Time.fixedDeltaTime * retractForce);
+            }
+
+            float dir = Input.GetAxis("Mouse ScrollWheel");
+            if (dir != 0.0f)
+            {
+                Debug.Log(dir);
+                anchorPoint.position = anchorPoint.position + (weaponNozzle.forward *(dir * scrollScale)); //Vector3.MoveTowards(weaponNozzle.position, anchorPoint.position, Time.fixedDeltaTime * retractForce);
             }
 
             lineRenderer.enabled = true;
