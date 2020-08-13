@@ -68,7 +68,15 @@ public class Ship : MonoBehaviour
     private void FixedUpdate()
     {
         if (!isPlayerDriving)
+        {
+            if (rb.velocity.magnitude == 0.0f && rb.angularVelocity.magnitude == 0.0f)
+                rb.isKinematic = true;
+            else
+                rb.isKinematic = false;
             return;
+        }
+        else
+            rb.isKinematic = false;
 
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -76,7 +84,7 @@ public class Ship : MonoBehaviour
         float mX = Input.GetAxis("Mouse X");
         float mY = Input.GetAxis("Mouse Y");
         float pitch = Input.GetAxis("Pitch");
-
+        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("UpDown"), Input.GetAxis("Vertical"));
         Vector2 currMouse = new Vector2(mX, mY);
         if ((currMouse - lastMouse).magnitude >= residualMagnitudeLimit)
         {
@@ -97,7 +105,7 @@ public class Ship : MonoBehaviour
 
         if (rb)
         {
-            Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("UpDown"), Input.GetAxis("Vertical"));
+            
 
             rb.AddRelativeTorque((new Vector3(0, 0, -pitch) * pitchAccel) * Time.fixedDeltaTime, ForceMode.Acceleration);
             if (movement.z < 0f)

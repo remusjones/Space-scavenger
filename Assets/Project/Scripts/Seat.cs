@@ -12,18 +12,18 @@ public class Seat : MonoBehaviour,IObjectInteract
     public PlayerController _Player;
 
     private float exitCooldown = 0.2f;
-    bool canExit = false;
-
-
-    IEnumerator WaitAfterEnter(float time)
+    private bool isReady = true;
+    IEnumerator WaitAfterEvent(float t)
     {
-        canExit = false;
-        yield return new WaitForSeconds(time);
-        canExit = true;
+        isReady = false;
+        yield return new WaitForSeconds(t);
+        isReady = true;
     }
+
     public void Interact(PlayerController player)
     {
-        EnterSeat(player);
+        if (isReady)
+            EnterSeat(player);
     }
     public void EnterSeat(PlayerController player)
     {
@@ -35,13 +35,11 @@ public class Seat : MonoBehaviour,IObjectInteract
         _Player.transform.SetParent(transform);
         _Player.rb.isKinematic = true;
         _CurrentPlayer = player.gameObject;
-        StartCoroutine(WaitAfterEnter(exitCooldown));
+        StartCoroutine(WaitAfterEvent(exitCooldown));
         _SeatEnterEvent.Invoke();
     }
     public void ExitSeat(PlayerController player)
     {
-        if (!canExit)
-            return;
 
         _Player = player;
         _Player._Canvas.SetActive(true);
@@ -49,8 +47,8 @@ public class Seat : MonoBehaviour,IObjectInteract
         _Player._Seated = false;
         _Player._Seat = null;
         _Player.rb.isKinematic = false;
-        _Player.transform.SetParent(null);       
-
+        _Player.transform.SetParent(null);
+        StartCoroutine(WaitAfterEvent(exitCooldown));
         _SeatExitEvent.Invoke();
         MatchVelocity(FindObjectOfType<Ship>().GetComponent<Rigidbody>());
     }
