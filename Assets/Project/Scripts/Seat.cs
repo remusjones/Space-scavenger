@@ -11,7 +11,16 @@ public class Seat : MonoBehaviour,IObjectInteract
     public GameObject _CurrentPlayer;
     public PlayerController _Player;
 
-    
+    private float exitCooldown = 0.2f;
+    bool canExit = false;
+
+
+    IEnumerator WaitAfterEnter(float time)
+    {
+        canExit = false;
+        yield return new WaitForSeconds(time);
+        canExit = true;
+    }
     public void Interact(PlayerController player)
     {
         EnterSeat(player);
@@ -26,11 +35,14 @@ public class Seat : MonoBehaviour,IObjectInteract
         _Player.transform.SetParent(transform);
         _Player.rb.isKinematic = true;
         _CurrentPlayer = player.gameObject;
-
+        StartCoroutine(WaitAfterEnter(exitCooldown));
         _SeatEnterEvent.Invoke();
     }
     public void ExitSeat(PlayerController player)
     {
+        if (!canExit)
+            return;
+
         _Player = player;
         _Player._Canvas.SetActive(true);
         _Player.transform.SetPositionAndRotation(_ExitAnchor.position, _ExitAnchor.rotation);
