@@ -1085,7 +1085,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 829c7370fc256c746a3c54e9accf2354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightKey: 116
   flicker: 1
   flickerMinTime: 20
   flickerMaxTime: 60
@@ -1973,6 +1972,7 @@ MonoBehaviour:
   reloadKey: 114
   changeToolKey: 9
   InteractionKey: 102
+  flashlightKey: 116
   primaryMouseKey: 0
   secondaryMouseKey: 1
   PrimaryMouseKeyEvent:
@@ -2005,6 +2005,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  FlashlightKeyEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  FlashlightKeyUpEvent:
+    m_PersistentCalls:
+      m_Calls: []
   SecondaryMouseKeyEvent:
     m_PersistentCalls:
       m_Calls:
@@ -2125,7 +2131,7 @@ MonoBehaviour:
   OnSecondaryHold:
     m_PersistentCalls:
       m_Calls: []
-  interactionTime: 1
+  interactionTime: 0.2
 --- !u!114 &1917208774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2497,11 +2503,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22482398, guid: 132e7f65a3fd16f48bb0cfcc88ef5e27, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -451.30008
+      value: -451.30005
       objectReference: {fileID: 0}
     - target: {fileID: 22482398, guid: 132e7f65a3fd16f48bb0cfcc88ef5e27, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -117.799805
+      value: -117.799835
       objectReference: {fileID: 0}
     - target: {fileID: 22493858, guid: 132e7f65a3fd16f48bb0cfcc88ef5e27, type: 3}
       propertyPath: m_LocalPosition.x
