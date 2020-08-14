@@ -12,7 +12,7 @@ public class ShipAimer : MonoBehaviour
     {
         Vector3 position = this.transform.InverseTransformDirection(_Ship.GetComponent<Rigidbody>().angularVelocity);
         posX = position.y * _Speed;
-        posY = position.x * _Speed;
+        posY = -position.x * _Speed;
         transform.localPosition = new Vector2(posX , posY);
     }
 }
