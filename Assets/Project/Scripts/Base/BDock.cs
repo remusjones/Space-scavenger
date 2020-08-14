@@ -31,7 +31,7 @@ public class BDock : MonoBehaviour, IDock
         {
             // get direction of push
             Vector3 dir = target.position - this.transform.position;
-            rigidbody.AddForce((dir * m_magnitizeValue) * Time.fixedDeltaTime, ForceMode.Acceleration);
+            rigidbody.AddForce((dir * m_magnitizeValue) * Time.fixedDeltaTime, ForceMode.VelocityChange);
         }
     }
 
@@ -47,6 +47,26 @@ public class BDock : MonoBehaviour, IDock
         StopCoroutine(dockingRoutine);
         yield return null;
     }
+    public void HandleMagnatiseOther(Rigidbody otherRigidbody, Transform ourTransform)
+    {
+
+        Vector3 dir = ourTransform.position - otherRigidbody.transform.position;
+        Vector3 otherForward = otherRigidbody.transform.forward;
+        otherRigidbody.AddRelativeTorque(Vector3.Cross(this.transform.forward, otherForward) * Time.deltaTime, ForceMode.Acceleration);
+        otherRigidbody.AddForce((dir * m_magnitizeValue) * Time.fixedDeltaTime, ForceMode.Acceleration);
+    }
+    IEnumerator DockingLoopOther(Transform thisObject, Rigidbody otherRigidbody)
+    {
+        while (m_dockTarget)
+        {
+            HandleMagnatiseOther(otherRigidbody, thisObject);
+
+            // exits, and waits.. 
+            yield return new WaitForFixedUpdate();
+        }
+        StopCoroutine(dockingRoutine);
+        yield return null;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -55,10 +75,11 @@ public class BDock : MonoBehaviour, IDock
         {
             m_dockTarget = tOtherDock;
             if (ignoreMagnitise == true)
+            {
+                dockingRoutine = DockingLoopOther(transform, tOtherDock.rb);
+                StartCoroutine(dockingRoutine);
                 return;
-            Debug.Log("test");
-            dockingRoutine = DockingLoop(other.transform, rb);
-            StartCoroutine(dockingRoutine);
+            }      
         }
     }
     private void OnTriggerExit(Collider other)
