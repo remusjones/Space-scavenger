@@ -14,7 +14,12 @@ public class LineRend : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        _LR.SetPosition(0,_Point1.position);
+        if (Vector3.Distance(_Point1.position, _Point2.position) > 0.05f)
+            _LR.enabled = true;
+        else
+            _LR.enabled = false;
+        _LR.SetPosition(0, _Point1.position);
         _LR.SetPosition(1, _Point2.position);
+
     }
 }
