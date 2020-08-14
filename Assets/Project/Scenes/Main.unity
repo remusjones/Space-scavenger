@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.26223555, g: 0.1912169, b: 0.2400536, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -129,7 +129,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-3580
+  m_Name: pb_Mesh-3586
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -976,12 +976,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 4849ddd70247129478ed976d97804897, type: 3}
       propertyPath: m_Materials.Array.size
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 4849ddd70247129478ed976d97804897, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 61a6ad23a6badd04080b711e46eced0e, type: 2}
+      objectReference: {fileID: 2100000, guid: df86f820e53353649b49b8ca8d8428fd, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 4849ddd70247129478ed976d97804897, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: df86f820e53353649b49b8ca8d8428fd, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 4849ddd70247129478ed976d97804897, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: df86f820e53353649b49b8ca8d8428fd, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 4849ddd70247129478ed976d97804897, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: df86f820e53353649b49b8ca8d8428fd, type: 2}
     - target: {fileID: 919132149155446097, guid: 4849ddd70247129478ed976d97804897, type: 3}
       propertyPath: m_Name
       value: Spaceship
@@ -1284,7 +1296,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-3578
+  m_Name: pb_Mesh-3584
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6672,10 +6684,62 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 686013170186334765, guid: b3096f6e8e19de04b8b6bd45df6fc08d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.0104703335
+      objectReference: {fileID: 0}
+    - target: {fileID: 686013170186334765, guid: b3096f6e8e19de04b8b6bd45df6fc08d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.0104703335
+      objectReference: {fileID: 0}
+    - target: {fileID: 686013170186334765, guid: b3096f6e8e19de04b8b6bd45df6fc08d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.0104703335
+      objectReference: {fileID: 0}
+    - target: {fileID: 686013170186334765, guid: b3096f6e8e19de04b8b6bd45df6fc08d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 686013170186334765, guid: b3096f6e8e19de04b8b6bd45df6fc08d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 686013170186334765, guid: b3096f6e8e19de04b8b6bd45df6fc08d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 686013170186334765, guid: b3096f6e8e19de04b8b6bd45df6fc08d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 686013170186334765, guid: b3096f6e8e19de04b8b6bd45df6fc08d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 686013170186334765, guid: b3096f6e8e19de04b8b6bd45df6fc08d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 686013170186334765, guid: b3096f6e8e19de04b8b6bd45df6fc08d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.201
+      objectReference: {fileID: 0}
+    - target: {fileID: 686013170186334765, guid: b3096f6e8e19de04b8b6bd45df6fc08d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.778
+      objectReference: {fileID: 0}
+    - target: {fileID: 686013170186334765, guid: b3096f6e8e19de04b8b6bd45df6fc08d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.763
+      objectReference: {fileID: 0}
     - target: {fileID: 2826083313017914711, guid: b3096f6e8e19de04b8b6bd45df6fc08d, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 4479655299556130184, guid: b3096f6e8e19de04b8b6bd45df6fc08d, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -5204645960884261155, guid: 4849ddd70247129478ed976d97804897, type: 3}
     - target: {fileID: 7842534313702384824, guid: b3096f6e8e19de04b8b6bd45df6fc08d, type: 3}
       propertyPath: m_LocalPosition.z
       value: 7.22
