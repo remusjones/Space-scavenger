@@ -13,7 +13,7 @@ public class InformationCanvas : MonoBehaviour
     private string speedAppend = "m/s";
 
     [SerializeField]
-    Rigidbody playerRigidbody = null;
+    Rigidbody rb = null;
 
     bool isRunning = false;
     
@@ -29,7 +29,7 @@ public class InformationCanvas : MonoBehaviour
         {
             yield return new WaitForEndOfFrame();
 
-            float playerSpeed = playerRigidbody.velocity.magnitude;
+            float playerSpeed = rb.velocity.magnitude;
 
             string printString;
             if (playerSpeed <= 99.9f)

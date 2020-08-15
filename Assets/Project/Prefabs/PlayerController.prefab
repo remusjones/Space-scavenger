@@ -500,7 +500,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oxygenValue: {fileID: 1684033442}
   speedValue: {fileID: 933163560}
-  playerRigidbody: {fileID: -2958066768259162604}
+  rb: {fileID: -2958066768259162604}
 --- !u!1 &933163556
 GameObject:
   m_ObjectHideFlags: 0

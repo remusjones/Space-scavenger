@@ -55,7 +55,6 @@ public class Ship : MonoBehaviour
     [Tooltip("Used as a speed multiplier when moving backwards | movement.z = Mathf.Clamp(movement.z, -maxBackwardsThrust, 0f)")]
     public float maxBackwardsThrust = 0.1f;
 
-    public TextMeshProUGUI _SpeedText;
     void Start()
     {
         rb = this.GetComponent<Rigidbody>();
@@ -68,7 +67,6 @@ public class Ship : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-        _SpeedText.text = rb.velocity.magnitude.ToString("f0") + " m/s";
         if (!isPlayerDriving)
         {
             if (rb.velocity.magnitude == 0.0f && rb.angularVelocity.magnitude == 0.0f)
