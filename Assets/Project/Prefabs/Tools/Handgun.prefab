@@ -3848,7 +3848,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 7479
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -5252,19 +5252,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2546493468008821532, guid: f8654591a19c4ed4dbf1c4490f712db0, type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 0.02053388
+      value: -5.53174e-40
       objectReference: {fileID: 0}
     - target: {fileID: 2546493468008821532, guid: f8654591a19c4ed4dbf1c4490f712db0, type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 2.69e-43
+      value: 0.06640625
       objectReference: {fileID: 0}
     - target: {fileID: 2546493468008821532, guid: f8654591a19c4ed4dbf1c4490f712db0, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 5.38e-43
+      value: 137
       objectReference: {fileID: 0}
     - target: {fileID: 2546493468008821532, guid: f8654591a19c4ed4dbf1c4490f712db0, type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 0
+      value: 0.203125
       objectReference: {fileID: 0}
     - target: {fileID: 2546493468008821533, guid: f8654591a19c4ed4dbf1c4490f712db0, type: 3}
       propertyPath: m_Layer
@@ -5352,7 +5352,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2546493469094353140, guid: f8654591a19c4ed4dbf1c4490f712db0, type: 3}
       propertyPath: InitialModule.maxNumParticles
-      value: 1
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2546493469094353140, guid: f8654591a19c4ed4dbf1c4490f712db0, type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.data[0].probability
@@ -5361,6 +5361,18 @@ PrefabInstance:
     - target: {fileID: 2546493469094353140, guid: f8654591a19c4ed4dbf1c4490f712db0, type: 3}
       propertyPath: InitialModule.startSpeed.minScalar
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2546493469094353140, guid: f8654591a19c4ed4dbf1c4490f712db0, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2546493469094353140, guid: f8654591a19c4ed4dbf1c4490f712db0, type: 3}
+      propertyPath: lengthInSec
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2546493469094353140, guid: f8654591a19c4ed4dbf1c4490f712db0, type: 3}
+      propertyPath: CollisionModule.collidesWith.m_Bits
+      value: 7479
       objectReference: {fileID: 0}
     - target: {fileID: 2546493469094353142, guid: f8654591a19c4ed4dbf1c4490f712db0, type: 3}
       propertyPath: m_Name
