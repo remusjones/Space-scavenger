@@ -15,6 +15,8 @@ public class AIRunner : MonoBehaviour,IDamageable
 
     public Rigidbody _Rb;
 
+    
+    private bool jumpCooldown = false;
     public void Damage(float damage)
     {
         _Rb.isKinematic = false;
@@ -29,7 +31,17 @@ public class AIRunner : MonoBehaviour,IDamageable
     {
         
     }
+    IEnumerator JumpAtTarget()
+    {
+        jumpCooldown = true;
 
+        _Rb.isKinematic = false;
+        _Rb.AddForce((_Target.transform.position - this.transform.position), ForceMode.Impulse);
+        _Nav.isStopped = true;
+        yield return new WaitForSeconds(3f);
+
+        jumpCooldown = false;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -44,7 +56,22 @@ public class AIRunner : MonoBehaviour,IDamageable
                 return;
             }
         }
-        _Nav.destination = _Target.position;
+        if (!jumpCooldown)
+        {
+            if (_Nav.isOnNavMesh)
+            {
+                _Nav.destination = _Target.position;
+                _Nav.isStopped = false;
+                _Rb.isKinematic = true;
+                NavMeshPath path = new NavMeshPath();
+                bool success = _Nav.CalculatePath(_Target.position, path);
+                if (_Nav.pathStatus == NavMeshPathStatus.PathInvalid || !success)
+                {
+                    if (!jumpCooldown)
+                        StartCoroutine(JumpAtTarget());
+                }
+            }
+        }
 
         if (_Nav.isOnOffMeshLink)
         {
